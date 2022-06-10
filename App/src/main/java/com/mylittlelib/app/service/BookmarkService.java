@@ -1,6 +1,7 @@
 package com.mylittlelib.app.service;
 
-import javax.persistence.Entity;
+import lombok.extern.slf4j.Slf4j;
 
 public class BookmarkService {
+
 }

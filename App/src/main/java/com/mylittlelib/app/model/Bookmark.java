@@ -1,9 +1,14 @@
 package com.mylittlelib.app.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 public class Bookmark {
     @Id
