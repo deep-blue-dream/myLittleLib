@@ -1,9 +1,13 @@
 package com.mylittlelib.app.model;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter @Setter
 @Entity
 public class User {
     @Id
@@ -20,6 +24,9 @@ public class User {
     @Column
     private String password;
 
+    @Column(name = "is_signin")
+    private boolean isSignin;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private Set<Category> categoryList = new HashSet<>();
 
@@ -28,8 +35,8 @@ public class User {
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private Set<Friend> friendList = new HashSet<>();
-//    private List<Friend> friendList = new ArrayList<>();
 
-
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+    private Profile profile;
 
 }
