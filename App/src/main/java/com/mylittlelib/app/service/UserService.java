@@ -35,6 +35,15 @@ public class UserService {
         return user;
     }
 
+    public User findByUserId(String userId){
+        User user = userRepository.findUserByUserId(userId);
+        if(user == null){
+            log.error("유저 아이디가 잘못됨!");
+            throw new RuntimeException("not match");
+        }
+        return user;
+    }
+
     public User update(String userId, String password, String newPassword) {
         User user = userRepository.findUserByUserId(userId);
         if(user == null || !user.getPassword().equals(password)){
