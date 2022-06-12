@@ -8,10 +8,7 @@ import com.mylittlelib.app.service.BookmarkService;
 import com.mylittlelib.app.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("bookmark")
@@ -22,7 +19,7 @@ public class BookmarkController {
     CategoryService categoryService;
     //like 생성자는 일단 보류
     @GetMapping
-    public ResponseEntity<?> save(@RequestBody BookmarkDTO bookmarkDTO){
+    public ResponseEntity<?> saveBookmark(@RequestBody BookmarkDTO bookmarkDTO){
         try {
             Category getCategory = categoryService.findByTitle(bookmarkDTO.getCategorytitle());
             Bookmark bookmark = Bookmark.builder()
@@ -39,6 +36,22 @@ public class BookmarkController {
                     .build();
             return ResponseEntity.ok(responseBookmarkDTO);
         } catch (Exception e) {
+            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+            return  ResponseEntity.badRequest().body(responseDTO);
+        }
+    }
+    @PutMapping("/update")
+    public ResponseEntity<?> updateBookmark(@RequestBody BookmarkDTO bookmarkDTO){
+        try {
+            Bookmark bookmark = bookmarkService.updateBookmark(bookmarkDTO);
+            BookmarkDTO responseBookmarkDTO = BookmarkDTO.builder()
+                    .bookmarkIndex(bookmark.getBookmarkIndex())
+                    .bookmarkTitle(bookmark.getBookmarkTitle())
+                    .description(bookmark.getDescription())
+                    .categorytitle(bookmark.getCategory().getCategoryTitle())
+                    .build();
+            return ResponseEntity.ok(responseBookmarkDTO);
+        }catch (Exception e){
             ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
             return  ResponseEntity.badRequest().body(responseDTO);
         }
