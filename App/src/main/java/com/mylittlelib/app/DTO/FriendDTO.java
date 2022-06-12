@@ -1,31 +1,22 @@
 package com.mylittlelib.app.DTO;
 
 import com.mylittlelib.app.model.Friend;
-import com.mylittlelib.app.model.User;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import lombok.*;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class FriendDTO {
-    private List<Long> friendsList;
+    private Long friendIndex;
+    private Long userIndex;
+    private Long friendUserIndex;
 
-    public FriendDTO(User user) {
-        Set<Friend> userFriendsList = user.getFriendList();
-        List<Long> friendIndexList = new ArrayList<>();
+    public FriendDTO(Friend friend){
+        this.friendIndex = friend.getFriendIndex();
+        this.userIndex = friend.getUser().getUserIndex();
+        this.friendUserIndex = friend.getFriendUserIndex();
 
-        for(Friend friend:userFriendsList) {
-            friendIndexList.add(friend.getFriendUserIndex());
-        }
-
-        this.friendsList = friendIndexList;
     }
 }

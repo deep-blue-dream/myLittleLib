@@ -31,21 +31,30 @@ public class FriendService {
         for (Friend oneFriend : user.getFriendList()) {
             if (oneFriend.getFriendIndex() == friend.getUserIndex()) {
                 log.warn("이미 친구친구임");
-                return new FriendDTO(user);
+                Friend result = friendRepository.findByUserAndFriendIndex(user,friend.getUserIndex());
+                return new FriendDTO(result);
             }
         }
 
-        Friend result = new Friend();
+        Friend result = Friend.builder()
+                    .user(user)
+                    .friendUserIndex(friend.getUserIndex())
+                    .build();
 
-        result.setUser(user);
-        result.setFriendUserIndex(friend.getUserIndex());
-
-        Friend result2 = new Friend();
-        result2.setUser(friend);
-        result2.setFriendUserIndex(user.getUserIndex());
+        Friend result2 = Friend.builder()
+                    .user(friend)
+                    .friendUserIndex(user.getUserIndex())
+                    .build();
 
         friendRepository.save(result);
         friendRepository.save(result2);
-        return new FriendDTO(user);
+
+        FriendDTO friendDTO = FriendDTO
+                    .builder()
+                    .friendIndex(result.getFriendIndex())
+                    .friendUserIndex(friend.getUserIndex())
+                    .userIndex(user.getUserIndex())
+                    .build();
+        return friendDTO;
     }
 }
