@@ -27,6 +27,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
+
     public User signin(String userId, String password) {
         User user = userRepository.findUserByUserIdAndPassword(userId, password);
         if(user == null){
@@ -36,13 +37,20 @@ public class UserService {
     }
 
     public User update(String userId, String password, String newPassword) {
-        User user = userRepository.findUserByUserId(userId);
+        User user = findbyId(userId);
         if(user == null || !user.getPassword().equals(password)){
                 log.error("failed");
                 throw new RuntimeException("not match");
         }
         user.setPassword(newPassword);
         return userRepository.save(user);
+    }
+
+    public User findbyId(String userId) {
+        if(userRepository.findUserByUserId(userId) == null){
+            throw new RuntimeException("invalid userId");
+        }
+        return userRepository.findUserByUserId(userId);
     }
 }
 
