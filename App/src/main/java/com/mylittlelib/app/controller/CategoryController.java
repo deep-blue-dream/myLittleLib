@@ -10,6 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
 @RequestMapping("category")
 public class CategoryController {
@@ -42,11 +46,11 @@ public class CategoryController {
     @GetMapping("/search")
     public ResponseEntity<?> findByTitle(@RequestBody CategoryDTO categoryDTO){
         try{
-            Category registerCategory = categoryService.findByTitle(categoryDTO);
+            Category category = categoryService.findByTitle(categoryDTO.getCategoryTitle());
             CategoryDTO responseCategoryDTO = CategoryDTO.builder()
-                    .categoryIndex(registerCategory.getCategoryIndex())
-                    .categoryTitle(registerCategory.getCategoryTitle())
-                    .userId(registerCategory.getUser().getUserId())
+                    .categoryIndex(category.getCategoryIndex())
+                    .categoryTitle(category.getCategoryTitle())
+                    .userId(category.getUser().getUserId())
                     .build();
             return ResponseEntity.ok(responseCategoryDTO);
         }catch (Exception e){
@@ -58,12 +62,25 @@ public class CategoryController {
     @PutMapping("/update")
     public ResponseEntity<?> updateCatgory(@RequestBody CategoryDTO categoryDTO){
         try {
-            Category registerCategory = categoryService.updateCategory(categoryDTO);
+            Category category = categoryService.updateCategory(categoryDTO);
             CategoryDTO responseCategoryDTO = CategoryDTO.builder()
-                    .categoryIndex(registerCategory.getCategoryIndex())
-                    .categoryTitle(registerCategory.getCategoryTitle())
-                    .userId(registerCategory.getUser().getUserId())
+                    .categoryIndex(category.getCategoryIndex())
+                    .categoryTitle(category.getCategoryTitle())
+                    .userId(category.getUser().getUserId())
                     .build();
+            return ResponseEntity.ok(responseCategoryDTO);
+        } catch (Exception e) {
+            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+            return  ResponseEntity.badRequest().body(responseDTO);
+        }
+
+    }
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deleteCategory(@RequestBody CategoryDTO categoryDTO){
+        try {
+            List<Category> categories = categoryService.deleteCategory(categoryDTO);
+            List<CategoryDTO> dtos =categories.stream().map(CategoryDTO::new).collect(Collectors.toList());
+            ResponseDTO<CategoryDTO> responseCategoryDTO = ResponseDTO.<CategoryDTO>builder().data(dtos).build();
             return ResponseEntity.ok(responseCategoryDTO);
         } catch (Exception e) {
             ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();

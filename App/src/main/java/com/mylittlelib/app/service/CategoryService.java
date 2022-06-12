@@ -7,45 +7,78 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class CategoryService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+    private Category category;
 
-    public Category save(Category category) {
-
-        if(category.getCategoryTitle() == null  ){
+    private void titleIsNull(String title){
+        if(title == null || title.equals("")){
             log.error("title is null");
-            throw new RuntimeException("Invalid argument");
+            throw  new RuntimeException("Invalid argument");
         }
+    }
+    public Category save(Category category) {
         final String categoryTitle = category.getCategoryTitle();
-        if(categoryRepository.findCategoryByCategoryTitle(categoryTitle) != null){
-            log.warn("Category Title already exists {}", categoryTitle);
-            throw new RuntimeException("Category Title already exists");
+
+        try{
+            titleIsNull(categoryTitle);
+            if(categoryRepository.findCategoryByCategoryTitle(categoryTitle) != null){
+                log.warn("Category Title already exists {}", categoryTitle);
+                throw new RuntimeException("Category Title already exists");
+            }
+        }catch (RuntimeException e){
+            throw new RuntimeException(e.getMessage());
         }
 
         return categoryRepository.save(category);
     }
-    public Category findByTitle(CategoryDTO categoryDTO) {
+    public Category findByTitle(String title) {
 
-        Category findCategory = categoryRepository.findCategoryByCategoryTitle(categoryDTO.getCategoryTitle());
-        if (findCategory == null) {
-            log.error("failed");
-            throw new RuntimeException("not found title");
+        try {
+            category = categoryRepository.findCategoryByCategoryTitle(title);
+            return category;
+        } catch (NullPointerException e) {
+            throw new RuntimeException("Not found title");
         }
-
-        return findCategory;
     }
     public Category updateCategory(CategoryDTO categoryDTO) {
 
-        if(categoryDTO.getNewCategoryTitle() == null){
-            log.error("newtitle is null");
-            throw new RuntimeException("Invalid argument");
+        String title = categoryDTO.getCategoryTitle();
+        try{
+            titleIsNull(categoryDTO.getCategoryTitle());
+            category = categoryRepository.findCategoryByCategoryTitle(title);
+            category.setCategoryTitle(categoryDTO.getNewCategoryTitle());
+            return categoryRepository.save(category);
+        }catch (NullPointerException e) {
+            throw new RuntimeException("Not found title");
+        }catch (RuntimeException e){
+            throw new RuntimeException(e.getMessage());
         }
-        Category updateCategory = findByTitle(categoryDTO);
-        updateCategory.setCategoryTitle(categoryDTO.getNewCategoryTitle());
-        return categoryRepository.save(updateCategory);
+
+
+
+
+    }
+
+    public List<Category> deleteCategory(CategoryDTO categoryDTO) {
+        String title = categoryDTO.getCategoryTitle();
+        try {
+            titleIsNull(categoryDTO.getCategoryTitle());
+            category = categoryRepository.findCategoryByCategoryTitle(title);
+            category.setCategoryTitle(categoryDTO.getNewCategoryTitle());
+            categoryRepository.delete(category);
+            return categoryRepository.findAll();
+        } catch (NullPointerException e) {
+            throw new RuntimeException("Not found title");
+        }catch (RuntimeException e){
+            throw new RuntimeException(e.getMessage());
+        }
+
     }
 }
