@@ -10,5 +10,6 @@ public class CategoryDTO {
     private Long categoryIndex;
     private String categoryTitle;
     private String userId;
+    private String newCategoryTitle;
 
 }

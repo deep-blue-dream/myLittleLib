@@ -2,19 +2,13 @@ package com.mylittlelib.app.controller;
 
 import com.mylittlelib.app.DTO.CategoryDTO;
 import com.mylittlelib.app.DTO.ResponseDTO;
-import com.mylittlelib.app.DTO.UserDTO;
 import com.mylittlelib.app.model.Category;
 import com.mylittlelib.app.model.User;
 import com.mylittlelib.app.service.CategoryService;
 import com.mylittlelib.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.ResponseEntity;
-
-import java.lang.annotation.Retention;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("category")
@@ -59,5 +53,22 @@ public class CategoryController {
             ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
             return  ResponseEntity.badRequest().body(responseDTO);
         }
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<?> updateCatgory(@RequestBody CategoryDTO categoryDTO){
+        try {
+            Category registerCategory = categoryService.updateCategory(categoryDTO);
+            CategoryDTO responseCategoryDTO = CategoryDTO.builder()
+                    .categoryIndex(registerCategory.getCategoryIndex())
+                    .categoryTitle(registerCategory.getCategoryTitle())
+                    .userId(registerCategory.getUser().getUserId())
+                    .build();
+            return ResponseEntity.ok(responseCategoryDTO);
+        } catch (Exception e) {
+            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+            return  ResponseEntity.badRequest().body(responseDTO);
+        }
+
     }
 }
