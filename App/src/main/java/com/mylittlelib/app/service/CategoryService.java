@@ -17,12 +17,6 @@ public class CategoryService {
     private CategoryRepository categoryRepository;
     private Category category;
 
-    private void titleIsNull(String title){
-        if(title == null || title.equals("")){
-            log.error("title is null");
-            throw  new RuntimeException("Invalid argument");
-        }
-    }
     public Category save(Category category) {
         final String categoryTitle = category.getCategoryTitle();
 
@@ -65,7 +59,6 @@ public class CategoryService {
 
 
     }
-
     public List<Category> deleteCategory(CategoryDTO categoryDTO) {
         String title = categoryDTO.getCategoryTitle();
         try {
@@ -80,5 +73,12 @@ public class CategoryService {
             throw new RuntimeException(e.getMessage());
         }
 
+    }
+
+    private void titleIsNull(String title){
+        if(title == null || title.equals("")){
+            log.error("title is null");
+            throw  new RuntimeException("Invalid argument");
+        }
     }
 }
