@@ -46,13 +46,18 @@ public class CategoryController {
         }
     }
     @GetMapping("/search")
-    public CategoryDTO findByTitle(@RequestBody CategoryDTO categoryDTO){
-        Category registerCategory = categoryService.findByTitle(categoryDTO);
-        CategoryDTO responseCategoryDTO = CategoryDTO.builder()
-                .categoryIndex(registerCategory.getCategoryIndex())
-                .categoryTitle(registerCategory.getCategoryTitle())
-                .userId(registerCategory.getUser().getUserId())
-                .build();
-        return responseCategoryDTO;
+    public ResponseEntity<?> findByTitle(@RequestBody CategoryDTO categoryDTO){
+        try{
+            Category registerCategory = categoryService.findByTitle(categoryDTO);
+            CategoryDTO responseCategoryDTO = CategoryDTO.builder()
+                    .categoryIndex(registerCategory.getCategoryIndex())
+                    .categoryTitle(registerCategory.getCategoryTitle())
+                    .userId(registerCategory.getUser().getUserId())
+                    .build();
+            return ResponseEntity.ok(responseCategoryDTO);
+        }catch (Exception e){
+            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+            return  ResponseEntity.badRequest().body(responseDTO);
+        }
     }
 }

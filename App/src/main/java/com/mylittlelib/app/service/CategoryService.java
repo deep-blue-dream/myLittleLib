@@ -14,14 +14,18 @@ public class CategoryService {
 
     @Autowired
     private CategoryRepository categoryRepository;
-    @Autowired
-    private UserRepository userRepository;
 
     public Category save(Category category) {
 
-        if(category.getCategoryTitle() == null ){
+        if(category.getCategoryTitle() == null  ){
             throw new RuntimeException("Invalid arguments");
         }
+        final String categoryTitle = category.getCategoryTitle();
+        if(categoryRepository.findCategoryByCategoryTitle(categoryTitle) != null){
+            log.warn("Category Title already exists {}", categoryTitle);
+            throw new RuntimeException("Category Title already exists");
+        }
+
         return categoryRepository.save(category);
     }
     public Category findByTitle(CategoryDTO categoryDTO) {
