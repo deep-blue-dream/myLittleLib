@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class BookmarkService {
@@ -26,13 +28,6 @@ public class BookmarkService {
         }
         return bookmarkRepository.save(bookmark);
     }
-    private void titleIsNull(String title){
-        if(title == null || title.equals("")){
-            log.error("title is null");
-            throw  new RuntimeException("Invalid argument");
-        }
-    }
-
     public Bookmark updateBookmark(BookmarkDTO bookmarkDTO) {
         String title = bookmarkDTO.getBookmarkTitle();
         try{
@@ -46,5 +41,26 @@ public class BookmarkService {
             throw new RuntimeException(e.getMessage());
         }
         return bookmarkRepository.save(bookmark);
+    }
+
+    public List<Bookmark> deleteBookmark(BookmarkDTO bookmarkDTO) {
+        String title = bookmarkDTO.getBookmarkTitle();
+        try{
+            titleIsNull(title);
+            bookmark = bookmarkRepository.findBookmarkByBookmarkTitle(title);
+            bookmarkRepository.delete(bookmark);
+            return bookmarkRepository.findAll();
+        }catch (NullPointerException e) {
+            throw new RuntimeException("Not found title");
+        }catch (RuntimeException e){
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+    private void titleIsNull(String title){
+        if(title == null || title.equals("")){
+            log.error("bookmarktitle is null");
+            throw  new RuntimeException("Invalid argument");
+        }
     }
 }

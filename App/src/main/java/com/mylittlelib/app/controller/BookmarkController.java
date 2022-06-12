@@ -1,6 +1,7 @@
 package com.mylittlelib.app.controller;
 
 import com.mylittlelib.app.DTO.BookmarkDTO;
+import com.mylittlelib.app.DTO.CategoryDTO;
 import com.mylittlelib.app.DTO.ResponseDTO;
 import com.mylittlelib.app.model.Bookmark;
 import com.mylittlelib.app.model.Category;
@@ -9,6 +10,9 @@ import com.mylittlelib.app.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("bookmark")
@@ -40,7 +44,7 @@ public class BookmarkController {
             return  ResponseEntity.badRequest().body(responseDTO);
         }
     }
-    @PutMapping("/update")
+    @PutMapping()
     public ResponseEntity<?> updateBookmark(@RequestBody BookmarkDTO bookmarkDTO){
         try {
             Bookmark bookmark = bookmarkService.updateBookmark(bookmarkDTO);
@@ -51,6 +55,17 @@ public class BookmarkController {
                     .categorytitle(bookmark.getCategory().getCategoryTitle())
                     .build();
             return ResponseEntity.ok(responseBookmarkDTO);
+        }catch (Exception e){
+            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+            return  ResponseEntity.badRequest().body(responseDTO);
+        }
+    }
+    @DeleteMapping()
+    public ResponseEntity<?> deleteBookmark(@RequestBody BookmarkDTO bookmarkDTO){
+        try{
+            List<Bookmark> bookmarks = bookmarkService.deleteBookmark(bookmarkDTO);
+            List<BookmarkDTO> dtos = bookmarks.stream().map(BookmarkDTO::new).collect(Collectors.toList());
+           return ResponseEntity.ok(dtos);
         }catch (Exception e){
             ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
             return  ResponseEntity.badRequest().body(responseDTO);

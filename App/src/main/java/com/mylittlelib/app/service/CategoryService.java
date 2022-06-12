@@ -45,7 +45,7 @@ public class CategoryService {
 
         String title = categoryDTO.getCategoryTitle();
         try{
-            titleIsNull(categoryDTO.getCategoryTitle());
+            titleIsNull(title);
             category = categoryRepository.findCategoryByCategoryTitle(title);
             category.setCategoryTitle(categoryDTO.getNewCategoryTitle());
         }catch (NullPointerException e) {
@@ -62,9 +62,8 @@ public class CategoryService {
     public List<Category> deleteCategory(CategoryDTO categoryDTO) {
         String title = categoryDTO.getCategoryTitle();
         try {
-            titleIsNull(categoryDTO.getCategoryTitle());
+            titleIsNull(title);
             category = categoryRepository.findCategoryByCategoryTitle(title);
-            category.setCategoryTitle(categoryDTO.getNewCategoryTitle());
             categoryRepository.delete(category);
             return categoryRepository.findAll();
         } catch (NullPointerException e) {
@@ -77,7 +76,7 @@ public class CategoryService {
 
     private void titleIsNull(String title){
         if(title == null || title.equals("")){
-            log.error("title is null");
+            log.error("categorytitle is null");
             throw  new RuntimeException("Invalid argument");
         }
     }

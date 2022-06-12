@@ -79,7 +79,7 @@ public class CategoryController {
         try {
             List<Category> categories = categoryService.deleteCategory(categoryDTO);
             List<CategoryDTO> dtos =categories.stream().map(CategoryDTO::new).collect(Collectors.toList());
-            ResponseDTO<CategoryDTO> responseCategoryDTO = ResponseDTO.<CategoryDTO>builder().data(dtos).build();
+            ResponseDTO<CategoryDTO> responseCategoryDTO = ResponseDTO.<CategoryDTO>builder().catagoryData(dtos).build();
             return ResponseEntity.ok(responseCategoryDTO);
         } catch (Exception e) {
             ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
