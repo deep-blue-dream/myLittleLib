@@ -1,7 +1,7 @@
 import AddCatoryModal from "../modal/AddCategoryModal";
 import { useState } from "react";
 import React from "react";
-import Categories from "./categories/categories";
+import CategoryList from "./categories/CategoryList";
 // import Modal from "../modal/modaltest";
 // import categories from "./categories/Categories";
 
@@ -15,7 +15,7 @@ let todayMonth = (now.getMonth() + 1) > 9 ? (now.getMonth() + 1) : '0' + (now.ge
 let todayDate = now.getDate() > 9? now.getDate() : '0' + now.getDate();
 // 시간표시 부분 설정 완료
 
-const Content = ({ title }) => {
+const Content = ({ title , catrgory}) => {
   
   // modal test 부분 작성중
   const [modalOn, setModalOn] = useState(false);
@@ -49,7 +49,8 @@ const Content = ({ title }) => {
       {/* 박스 flex 적용 tailwind */}
       {/* 유저가 가지고 있는 카테고리 컨텐츠 등록 박스 시작 */}
 
-      
+      <CategoryList catrgorydata = {catrgory}/>
+
       {/* 유저가 가지고 있는 카테고리 컨텐츠 등록 박스 종료 */}
 
         {/* 새 카테고리 등록하기 */}    
@@ -68,7 +69,7 @@ const Content = ({ title }) => {
                   <div className="m-auto">
                     <div className="flex justify-between mb-4 pt-2 relative">
                       <div className="flex items-center ">
-                        <button className="object-center w-20 h-20 rounded-full border-none  flex justify-center items-center bg-white">
+                        <button className="object-center w-20 h-20 rounded-full border-none  flex justify-center items-center bg-white" onClick={clicked}>
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -80,7 +81,7 @@ const Content = ({ title }) => {
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             className="feather feather-plus"
-                            onClick={clicked}>
+                            >
                             <path d="M12 5v14M5 12h14" />
                           </svg>
                         </button>
@@ -105,6 +106,8 @@ const Content = ({ title }) => {
         <div className="flex text-white text-2xl pb-6 font-bold">
           <p>북마크 리스트</p>
         </div>
+
+        {/* 북마크 리스트 시작 */}
         <div>
           <div className="border-t solid border-gray-700 p-4 flex 2xl:items-start w-full hover:bg-gray-700">
             <img
@@ -139,104 +142,38 @@ const Content = ({ title }) => {
               <p className="text-right text-gray-400 text-sm">Dec, 12</p>
             </div>
           </div>
-          <div className="border-t solid border-gray-700 p-4 flex 2xl:items-start w-full hover:bg-gray-700">
-            <img
-              src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80"
-              alt="profile image"
-              className="object-cover w-10 h-10 rounded-full"
-            />
-            <div className="pl-4 w-full">
-              <div className="flex items-center justify-between w-full">
-                <div className="text-white font-medium">Mark</div>
-                  <div className="flex justify-center items-center cursor-pointer h-7 w-7">
+          {/* 북마크 리스트 1 종료*/}
+          {/* 구분선 생성 */}
+          <div className="border-t solid border-gray-700  flex 2xl:items-start w-full hover:bg-gray-700"></div>
+          {/* 구분선 완료 */}
+          <p className="text-base font-bold opacity-40 mt-4 text-white text-center">새 북마크 등록하기</p>
+          <div className="flex max-h-45">
+            <div className="m-auto">
+              <div className="flex justify-between mb-4 pt-2 relative">
+                <div className="flex items-center ">
+                  <button className="object-center w-10 h-10 rounded-full border-none  flex justify-center items-center bg-opacity-20 bg-white">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
+                      color="gray"
+                      width="24"
+                      height="24"
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      className="text-white"
-                    >
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                      className="feather feather-plus"
+                      onClick={clicked}>
+                      <path d="M12 5v14M5 12h14" />
                     </svg>
-                  </div>
-              </div>
-              <p className="my-2 text-sm text-gray-400">
-                Hey, can tell me about progress of project? I'm waiting for your
-                response.
-              </p>
-              <p className="text-right text-gray-400 text-sm">Dec, 12</p>
-            </div>
-          </div>
-          <div className="border-t solid border-gray-700 p-4 flex 2xl:items-start w-full hover:bg-gray-700">
-            <img
-              src="https://images.unsplash.com/photo-1543965170-4c01a586684e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NDZ8fG1hbnxlbnwwfDB8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60"
-              alt="profile image"
-              className="object-cover w-10 h-10 rounded-full"
-            />
-            <div className="pl-4 w-full">
-              <div className="flex items-center justify-between w-full">
-                <div className="text-white font-medium">David</div>
-                  <div className="flex justify-center items-center cursor-pointer h-7 w-7">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="text-white"
-                    >
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                    </svg>
-                  </div>
-                </div>
-                <p className="my-2 text-sm text-gray-400">
-                  Hey, can tell me about progress of project? I'm waiting for your
-                  response.
-                </p>
-              <p className="text-right text-gray-400 text-sm">Dec, 12</p>
-            </div>
-          </div>
-          <div className="border-t solid border-gray-700 p-4 flex 2xl:items-start w-full hover:bg-gray-700">
-            <img
-              src="https://images.unsplash.com/photo-1533993192821-2cce3a8267d1?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTl8fHdvbWFuJTIwbW9kZXJufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60"
-              alt="profile image"
-              className="object-cover w-10 h-10 rounded-full"
-            />
-            <div className="pl-4 w-full">
-              <div className="flex items-center justify-between w-full">
-                <div className="text-white font-medium">Mark</div>
-                <div className="flex justify-center items-center cursor-pointer h-7 w-7">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="text-white"
-                  >
-                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                  </svg>
+                  </button>
                 </div>
               </div>
-              <p className="my-2 text-sm text-gray-400">
-                I am really impressed! Can't wait to see the final result.
-              </p>
-              <p className="text-right text-gray-400 text-sm">Dec, 12</p>
             </div>
           </div>
+          {/* 북마크 등록 버튼 종료 */}
+          
         </div>
       </div>
     </div>

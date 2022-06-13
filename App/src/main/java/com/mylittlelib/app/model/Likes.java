@@ -22,3 +22,8 @@ public class Likes {
     @JoinColumn(name = "bookmark_index")
     private Bookmark bookmark;
 }
+
+
+
+
+

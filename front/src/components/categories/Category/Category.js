@@ -1,11 +1,5 @@
 import React, {useState} from 'react';
 
-// 카테고리 버튼 자동 생성 부분 작성중(더미 데이터)
-const categories = [
-    { id: 1, category: 'JAVA(카테고리 키워드)', title: '자바 공부', description: '자바 공부 유튜브 영상들만 모음-생활코딩'},
-    { id: 2, category: 'MUSIC(카테고리 키워드)', title: '노래 목록', description: '힐링 음악 유튜브 영상들만 모음'}
-  ];
-
 const Category = (props) => {
   const [isRendered, setIsRenderd] = useState(false);
   
@@ -29,11 +23,11 @@ const Category = (props) => {
               style={{ backgroundColor: '#fee4cb' }}
               >
               <div className="flex items-center justify-b">
-                <span className="text-sm">{categories.title}.{categories.category}</span>
+                <span className="text-sm">{props.id}.{props.category}</span>
               </div>
               <div className="text-center mb-4 mt-5">
-                <p className="text-base font-bold opacity-70">{categories.title}</p>
-                <p className="text-sm opacity-70 mt-2">북마크 설명</p>
+                <p className="text-base font-bold opacity-70">{props.title}</p>
+                <p className="text-sm opacity-70 mt-2">{props.description}</p>
               </div>
               <div>
                 <p className="text-sm font-bold m-0">진척상황</p>
