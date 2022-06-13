@@ -42,4 +42,8 @@ public class User {
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
     private Profile profile;
 
+    public String categoryTitletoString() {
+        return "categoryList=" + categoryList.toString() ;
+    }
+
 }

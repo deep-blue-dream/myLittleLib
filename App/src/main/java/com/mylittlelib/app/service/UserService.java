@@ -1,5 +1,6 @@
 package com.mylittlelib.app.service;
 
+import com.mylittlelib.app.DTO.UserDTO;
 import com.mylittlelib.app.model.User;
 import com.mylittlelib.app.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    User user;
 
     public User save(User user) {
         final String userId = user.getUserId();
@@ -32,24 +34,49 @@ public class UserService {
     }
 
 
-    public User signin(String userId, String password) {
-        User user = userRepository.findUserByUserIdAndPassword(userId, password);
-        if(user == null){
-            log.error("login failed");
-        }
-        return user;
-    }
+    public User signin(UserDTO userDTO) {
+        final String userId = userDTO.getUserId();
+        final String password = userDTO.getPassword();
 
-    public User update(String userId, String password, String newPassword) {
-        User user = findbyId(userId);
-        if(user == null || !user.getPassword().equals(password)){
-                log.error("failed");
-                throw new RuntimeException("not match");
+        try {
+            userIdIsNull(userId);
+            passwordIsNull(password);
+            if(userRepository.findUserByUserIdAndPassword(userId, password) == null){
+                throw new RuntimeException("login failed");
+            }
+            user = userRepository.findUserByUserId(userId);
+            user.setSignin(true);
+        } catch (RuntimeException e){
+            throw new RuntimeException(e.getMessage());
         }
-        user.setPassword(newPassword);
         return userRepository.save(user);
     }
 
+
+    public User update(UserDTO userDTO) {
+        final String userId = userDTO.getUserId();
+        final String password = userDTO.getPassword();
+        final String newPassword = userDTO.getNewPassword();
+        try {
+            userIdIsNull(userId);
+            passwordIsNull(password);
+            passwordIsNull(newPassword);
+            if(userRepository.findUserByUserId(userId) == null){
+                throw new RuntimeException("Invalid userId");
+            }
+            if(!user.getPassword().equals(password)){
+                log.error("failed");
+                throw new RuntimeException("not match");
+            }
+//            user = userRepository.findUserByUserId(userId);
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }
+        User userr = userRepository.findUserByUserId(userId);
+        userr.setPassword(newPassword);
+        userr.setSignin(false);
+        return userRepository.save(userr);
+    }
     public User findbyId(String userId) {
         if(userRepository.findUserByUserId(userId) == null){
             throw new RuntimeException("invalid userId");
@@ -62,12 +89,14 @@ public class UserService {
             throw  new RuntimeException("Invalid userId");
         }
     }
+
     private void emailIsNull(String email){
         if(email == null || email.equals("")){
             log.error("email is null");
             throw  new RuntimeException("Invalid email");
         }
     }
+
     private void passwordIsNull(String password){
         if(password == null || password.equals("")){
             log.error("password is null");

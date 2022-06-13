@@ -35,11 +35,12 @@ public class CategoryService {
     public Category findByTitle(String title) {
 
         try {
+            titleIsNull(title);
             category = categoryRepository.findCategoryByCategoryTitle(title);
-            return category;
         } catch (NullPointerException e) {
             throw new RuntimeException("Not found title");
         }
+        return category;
     }
     public Category updateCategory(CategoryDTO categoryDTO) {
 
@@ -65,12 +66,12 @@ public class CategoryService {
             titleIsNull(title);
             category = categoryRepository.findCategoryByCategoryTitle(title);
             categoryRepository.delete(category);
-            return categoryRepository.findAll();
         } catch (NullPointerException e) {
             throw new RuntimeException("Not found title");
         }catch (RuntimeException e){
             throw new RuntimeException(e.getMessage());
         }
+        return categoryRepository.findAll();
 
     }
 

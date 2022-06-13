@@ -22,6 +22,7 @@ public class UserController {
                     .userId(userDTO.getUserId())
                     .email(userDTO.getEmail())
                     .password(userDTO.getPassword())
+                    .isSignin(false)
                     .build();
             User registerUser = userService.save(user);
             UserDTO responseUserDTO = UserDTO.builder()
@@ -29,6 +30,7 @@ public class UserController {
                     .userId(registerUser.getUserId())
                     .email(registerUser.getEmail())
                     .password(registerUser.getPassword())
+                    .isSignin(registerUser.isSignin())
                     .build();
             return ResponseEntity.ok(responseUserDTO);
         }catch (Exception e){
@@ -38,12 +40,40 @@ public class UserController {
     }
 
     @PostMapping("/signin")
-    public User signin(@RequestBody User user) {
-        return userService.signin(user.getUserId(), user.getPassword());
+    public ResponseEntity<?> signin(@RequestBody UserDTO userDTO) {
+        try{
+            User user = userService.signin(userDTO);
+            UserDTO responseUserDTO = UserDTO.builder()
+                    .userIndex(user.getUserIndex())
+                    .userId(user.getUserId())
+                    .password(user.getPassword())
+                    .email(user.getEmail())
+                    .categoryList(user.categoryTitletoString())
+                    .isSignin(user.isSignin())
+                    .build();
+            return ResponseEntity.ok(responseUserDTO);
+        }catch (Exception e){
+            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+            return  ResponseEntity.badRequest().body(responseDTO);
+        }
     }
 
     @PostMapping("/update")
-    public User update(@RequestBody UserDTO userDTO) {
-        return userService.update(userDTO.getUserId(), userDTO.getPassword(), userDTO.getNewPassword());
+    public ResponseEntity<?> update(@RequestBody UserDTO userDTO) {
+        try{
+            User user = userService.update(userDTO);
+            UserDTO responseUserDTO = UserDTO.builder()
+                    .userIndex(user.getUserIndex())
+                    .userId(user.getUserId())
+                    .email(user.getEmail())
+                    .password(user.getPassword())
+                    .categoryList(user.categoryTitletoString())
+                    .isSignin(user.isSignin())
+                    .build();
+            return ResponseEntity.ok(responseUserDTO);
+        }catch (Exception e){
+            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+            return  ResponseEntity.badRequest().body(responseDTO);
+        }
     }
 }
