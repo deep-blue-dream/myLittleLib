@@ -3,8 +3,11 @@ package com.mylittlelib.app.service;
 import com.mylittlelib.app.model.User;
 import com.mylittlelib.app.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
+import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -52,6 +55,14 @@ public class UserService {
         }
         user.setPassword(newPassword);
         return userRepository.save(user);
+    }
+
+    public User findById(Long index){
+        Optional<User> user = userRepository.findById(index);
+        if(user.isPresent()){
+            return user.get();
+        }
+        return null;
     }
 }
 

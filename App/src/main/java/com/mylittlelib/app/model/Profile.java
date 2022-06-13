@@ -1,17 +1,20 @@
 package com.mylittlelib.app.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
 @Setter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Profile {
 
     @Id
     @Column(name = "profile_index")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long profileIndex;
 
     @OneToOne(fetch = FetchType.LAZY)
