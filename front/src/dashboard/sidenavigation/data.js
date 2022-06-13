@@ -5,6 +5,7 @@ import ArchivesIcon from './icons/archives';
 import SettingsIcon from './icons/settings';
 import DocumentationIcon from './icons/documentation';
 
+//아이콘 누르는 것에 따라서 링크가 변경됨.
 const data = [
   {
     title: 'Home',

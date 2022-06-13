@@ -1,6 +1,22 @@
 import { useToggle } from '../provider/context';
+import { useState } from 'react';
+import LoginModal from '../../modal/LoginModal'
+import SignUpModal from '../../modal/SignUpModal';
+
 
 export default function TopNavigation() {
+  const [loginModalOn, setLoginModalOn] = useState(false);
+  const [signUpModalOn, setSignUpModalOn] = useState(false);
+
+  const loginClicked = () => {
+    setLoginModalOn(true)
+  }
+
+  const signUpClicked = () => {
+    setSignUpModalOn(true)
+  }
+
+  
   const { toggle } = useToggle();
   return (
     <header className="h-20 items-center relative z-10">
@@ -95,13 +111,43 @@ export default function TopNavigation() {
                 />
               </svg>
             </a>
-            <a href="#" className="block relative">
-              <img
-                alt="Maurice Lokumba"
-                src="/images/1.jpg"
-                className="h-10 mx-auto object-cover rounded-full w-10"
-              />
-            </a>
+            <div>
+              <div className="block pr-5 relative">
+              <svg 
+                onClick={loginClicked}
+                className="w-6 h-6" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24" 
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path 
+                  stroke-linecap="round" 
+                  stroke-linejoin="round" 
+                  stroke-width="2" 
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                />
+              </svg>
+              </div>
+              {loginModalOn && < LoginModal setLoginModalOn={setLoginModalOn}/>}
+            </div>
+              {/* 회원가입 버튼 */}
+                
+
+              <svg 
+                onClick={signUpClicked}
+                class="w-6 h-6" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24" 
+                xmlns="http://www.w3.org/2000/svg">
+                <path 
+                  stroke-linecap="round" 
+                  stroke-linejoin="round" 
+                  stroke-width="2" 
+                  d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+                </svg>
+                {signUpModalOn && < SignUpModal setSignUpModalOn={setSignUpModalOn}/>}
           </div>
         </div>
       </div>
