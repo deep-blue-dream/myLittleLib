@@ -6,8 +6,15 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+<<<<<<< HEAD
 @Getter
 @Setter
+=======
+@Getter @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+>>>>>>> feature-friend,profile-CRUD
 @Entity
 @Builder
 @NoArgsConstructor

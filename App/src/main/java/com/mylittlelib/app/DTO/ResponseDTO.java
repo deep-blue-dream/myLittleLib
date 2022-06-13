@@ -2,8 +2,6 @@ package com.mylittlelib.app.DTO;
 
 import lombok.*;
 
-import java.util.List;
-
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -11,5 +9,4 @@ import java.util.List;
 @ToString
 public class ResponseDTO<T> {
     private String error;
-
 }
