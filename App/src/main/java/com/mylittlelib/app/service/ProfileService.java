@@ -28,16 +28,28 @@ public class ProfileService {
             throw new RuntimeException("[ERROR] 해당 유저가 존재하지 않습니다.");
         }
 
-
         if (profileRepository.existsByUser(profile.getUser())){
             log.error("이미 프로필이 존재합니다.");
             throw new RuntimeException("[ERROR] 이미 프로필이 존재합니다.");
         }
 
         return profileRepository.save(profile);
-
-
     }
 
 
+    public Profile update(Profile profile) {
+        if (profile.getUser() == null){
+            log.error("해당 유저가 존재하지 않음.");
+            throw new RuntimeException("[ERROR] 해당 유저가 존재하지 않습니다.");
+        }
+
+        if (!profileRepository.existsByUser(profile.getUser())){
+            log.error("프로필이 존재하지 않습니다.");
+            throw new RuntimeException("[ERROR] 프로필이 존재하지 않습니다.");
+        }
+        Profile getProfile = profileRepository.findByUser(profile.getUser());
+        getProfile.setImageUrl(profile.getImageUrl());
+        getProfile.setUser(profile.getUser());
+        return profileRepository.save(getProfile);
+    }
 }
