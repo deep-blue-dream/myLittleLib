@@ -1,7 +1,6 @@
 package com.mylittlelib.app.model;
 
 import lombok.*;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 import java.util.HashSet;

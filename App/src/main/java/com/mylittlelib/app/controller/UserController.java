@@ -1,9 +1,11 @@
 package com.mylittlelib.app.controller;
 
+import com.mylittlelib.app.DTO.ResponseDTO;
 import com.mylittlelib.app.DTO.UserDTO;
 import com.mylittlelib.app.model.User;
 import com.mylittlelib.app.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,8 +16,25 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/signup")
-    public User save(@RequestBody User user) {
-        return userService.save(user);
+    public ResponseEntity<?> save(@RequestBody UserDTO userDTO) {
+        try{
+            User user = User.builder()
+                    .userId(userDTO.getUserId())
+                    .email(userDTO.getEmail())
+                    .password(userDTO.getPassword())
+                    .build();
+            User registerUser = userService.save(user);
+            UserDTO responseUserDTO = UserDTO.builder()
+                    .userIndex(registerUser.getUserIndex())
+                    .userId(registerUser.getUserId())
+                    .email(registerUser.getEmail())
+                    .password(registerUser.getPassword())
+                    .build();
+            return ResponseEntity.ok(responseUserDTO);
+        }catch (Exception e){
+            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+            return  ResponseEntity.badRequest().body(responseDTO);
+        }
     }
 
     @PostMapping("/signin")
