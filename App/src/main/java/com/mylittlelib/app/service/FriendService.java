@@ -57,4 +57,25 @@ public class FriendService {
                     .build();
         return friendDTO;
     }
+
+    public boolean delete(String userId, String friendId) {
+        User user = userService.findByUserId(userId);
+        User friend = userService.findByUserId(friendId);
+        if (user == null || friend == null) {
+            log.error("삭제 실패. 본인, 친구의 아이디가 맞지 않음");
+            throw new RuntimeException("ERROR");
+        }
+        try {
+            Friend result = friendRepository.findByUserAndFriendUserIndex(user, friend.getUserIndex());
+            Friend result2 = friendRepository.findByUserAndFriendUserIndex(friend, user.getUserIndex());
+            System.out.println(result);
+            friendRepository.delete(result2);
+            friendRepository.delete(result);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+
+    }
 }

@@ -5,5 +5,7 @@ import com.mylittlelib.app.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface FriendRepository extends JpaRepository<Friend,Long> {
+    Friend findByUserAndFriendUserIndex(User friend, Long userIndex);
+
     Friend findByUserAndFriendIndex(User user, Long userIndex);
 }

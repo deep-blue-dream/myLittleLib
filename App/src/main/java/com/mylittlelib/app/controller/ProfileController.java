@@ -11,13 +11,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("profile")
+@RequestMapping("user/profile")
 public class ProfileController {
     @Autowired
     private ProfileService profileService;
 
     @Autowired
     private UserService userService;
+
     @PostMapping
     public ResponseEntity<?> save(@RequestBody ProfileDTO profileDTO){
         try{
