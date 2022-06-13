@@ -30,6 +30,7 @@ public class BookmarkController {
                     .bookmarkTitle(bookmarkDTO.getBookmarkTitle())
                     .description(bookmarkDTO.getDescription())
                     .category(getCategory)
+                    .bookmarkurl(bookmarkDTO.getBookmarkUrl())
                     .build();
             Bookmark registerBookmark = bookmarkService.save(bookmark);
             BookmarkDTO responseBookmarkDTO = BookmarkDTO.builder()
@@ -37,6 +38,7 @@ public class BookmarkController {
                     .categorytitle(registerBookmark.getCategory().getCategoryTitle())
                     .bookmarkTitle(registerBookmark.getBookmarkTitle())
                     .description(registerBookmark.getDescription())
+                    .bookmarkUrl(registerBookmark.getBookmarkurl())
                     .build();
             return ResponseEntity.ok(responseBookmarkDTO);
         } catch (Exception e) {
@@ -53,6 +55,7 @@ public class BookmarkController {
                     .bookmarkTitle(bookmark.getBookmarkTitle())
                     .description(bookmark.getDescription())
                     .categorytitle(bookmark.getCategory().getCategoryTitle())
+                    .bookmarkUrl(bookmark.getBookmarkurl())
                     .build();
             return ResponseEntity.ok(responseBookmarkDTO);
         }catch (Exception e){

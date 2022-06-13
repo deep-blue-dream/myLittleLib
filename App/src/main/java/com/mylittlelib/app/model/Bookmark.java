@@ -24,6 +24,9 @@ public class Bookmark {
     @Column
     private String description;
 
+    @Column
+    private String bookmarkurl;
+
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = Category.class) // student와 major의 관계는 다대일 (N:1)
     @JoinColumn(name = "category_index")
     private Category category;

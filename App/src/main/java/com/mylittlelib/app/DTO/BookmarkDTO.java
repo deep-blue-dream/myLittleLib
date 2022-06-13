@@ -18,6 +18,7 @@ public class BookmarkDTO {
     private String bookmarkTitle;
     private String description;
     private String categorytitle;
+    private String bookmarkUrl;
     //new
     private String newbookmarkTitle;
     private String newdescription;
@@ -27,5 +28,6 @@ public class BookmarkDTO {
         this.bookmarkTitle = bookmark.getBookmarkTitle();
         this.description = bookmark.getDescription();
         this.categorytitle = bookmark.getCategory().getCategoryTitle();
+        this.bookmarkUrl = bookmark.getBookmarkurl();
     }
 }

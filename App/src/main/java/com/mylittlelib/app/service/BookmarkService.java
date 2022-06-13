@@ -35,6 +35,7 @@ public class BookmarkService {
             bookmark = bookmarkRepository.findBookmarkByBookmarkTitle(title);
             bookmark.setBookmarkTitle(bookmarkDTO.getNewbookmarkTitle());
             bookmark.setDescription(bookmarkDTO.getNewdescription());
+            bookmark.setBookmarkurl(bookmarkDTO.getBookmarkUrl());
         }catch(NullPointerException e) {
             throw new RuntimeException("Not found title");
         }catch (RuntimeException e){
