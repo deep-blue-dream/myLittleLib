@@ -22,7 +22,6 @@ public class UserController {
                     .userId(userDTO.getUserId())
                     .email(userDTO.getEmail())
                     .password(userDTO.getPassword())
-                    .isSignin(false)
                     .build();
             User registerUser = userService.save(user);
             UserDTO responseUserDTO = UserDTO.builder()
@@ -30,7 +29,6 @@ public class UserController {
                     .userId(registerUser.getUserId())
                     .email(registerUser.getEmail())
                     .password(registerUser.getPassword())
-                    .isSignin(registerUser.isSignin())
                     .build();
             return ResponseEntity.ok(responseUserDTO);
         }catch (Exception e){
@@ -49,7 +47,6 @@ public class UserController {
                     .password(user.getPassword())
                     .email(user.getEmail())
                     .categoryList(user.categoryTitletoString())
-                    .isSignin(user.isSignin())
                     .build();
             return ResponseEntity.ok(responseUserDTO);
         }catch (Exception e){
@@ -68,7 +65,6 @@ public class UserController {
                     .email(user.getEmail())
                     .password(user.getPassword())
                     .categoryList(user.categoryTitletoString())
-                    .isSignin(user.isSignin())
                     .build();
             return ResponseEntity.ok(responseUserDTO);
         }catch (Exception e){

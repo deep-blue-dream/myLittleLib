@@ -6,17 +6,9 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-<<<<<<< HEAD
-@Getter
-@Setter
-=======
-@Getter @Setter
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
->>>>>>> feature-friend,profile-CRUD
 @Entity
 @Builder
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
@@ -33,9 +25,6 @@ public class User {
 
     @Column
     private String password;
-
-    @Column(name = "is_signin")
-    private boolean isSignin;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private Set<Category> categoryList = new HashSet<>();
