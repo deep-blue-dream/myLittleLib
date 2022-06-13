@@ -26,7 +26,7 @@ public class FriendController {
     public ResponseEntity<?> delete(@RequestParam("userId") String userId,@RequestParam("friendId") String friendId){
         try {
             boolean flag = friendService.delete(userId,friendId);
-            return ResponseEntity.ok(flag);
+            return ResponseEntity.ok().body(flag);
         } catch (Exception e){
             ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
             return ResponseEntity.badRequest().body(responseDTO);

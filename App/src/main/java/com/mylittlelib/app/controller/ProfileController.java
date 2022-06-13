@@ -53,7 +53,17 @@ public class ProfileController {
             ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
             return ResponseEntity.badRequest().body(responseDTO);
         }
+    }
 
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> delete(@RequestBody ProfileDTO profileDTO){
+        try {
+            boolean flag = profileService.delete(profileDTO.getUserIndex());
+            return ResponseEntity.ok().body(flag);
+        } catch (Exception e){
+            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
     }
 
 }

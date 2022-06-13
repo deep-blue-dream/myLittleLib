@@ -1,13 +1,15 @@
 package com.mylittlelib.app.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
 @Getter @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class User {
     @Id

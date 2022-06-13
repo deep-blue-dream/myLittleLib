@@ -68,9 +68,8 @@ public class FriendService {
         try {
             Friend result = friendRepository.findByUserAndFriendUserIndex(user, friend.getUserIndex());
             Friend result2 = friendRepository.findByUserAndFriendUserIndex(friend, user.getUserIndex());
-            System.out.println(result);
-            friendRepository.delete(result2);
             friendRepository.delete(result);
+            friendRepository.delete(result2);
             return true;
         } catch (Exception e) {
             return false;

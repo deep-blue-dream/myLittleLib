@@ -52,4 +52,32 @@ public class ProfileService {
         getProfile.setUser(profile.getUser());
         return profileRepository.save(getProfile);
     }
+
+    public boolean delete(Long userIndex) {
+        try{
+            Optional<User> user = userRepository.findById(userIndex);
+            User getUser = user.get();
+            if (getUser == null){
+                log.error("해당 유저가 존재하지 않음.");
+                throw new RuntimeException("[ERROR] 해당 유저가 존재하지 않습니다.");
+            }
+            Profile getProfile = profileRepository.findByUser(getUser);
+            if (!profileRepository.existsByUser(getUser)){
+                log.error("프로필이 존재하지 않습니다.");
+                throw new RuntimeException("[ERROR] 프로필이 존재하지 않습니다.");
+            }
+
+
+            System.out.println(getProfile.getProfileIndex());
+            System.out.println(getProfile.getUser().getUserId());
+            System.out.println(getProfile.getImageUrl());
+            getUser.setProfile(null);
+            profileRepository.delete(getProfile);
+            userRepository.save(getUser);
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+
+    }
 }
