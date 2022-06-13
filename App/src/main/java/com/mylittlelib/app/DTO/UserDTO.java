@@ -1,14 +1,17 @@
 package com.mylittlelib.app.DTO;
 
+import com.mylittlelib.app.model.Category;
+import com.mylittlelib.app.model.Friend;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-import javax.persistence.Column;
+import java.util.List;
+import java.util.Set;
 
-@Getter
-@Setter
+@Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDTO {
@@ -17,4 +20,8 @@ public class UserDTO {
     private String userId;
     private String password;
     private String newPassword;
+
+    private String categoryList;
+    private Set<Friend> friendList;
+
 }

@@ -1,14 +1,16 @@
 package com.mylittlelib.app.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@Getter @Setter
 @Entity
+@Builder
+@Getter @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,9 +26,6 @@ public class User {
     @Column
     private String password;
 
-    @Column(name = "is_signin")
-    private boolean isSignin;
-
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private Set<Category> categoryList = new HashSet<>();
 
@@ -38,5 +37,9 @@ public class User {
 
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
     private Profile profile;
+
+    public String categoryTitletoString() {
+        return "categoryList=" + categoryList.toString() ;
+    }
 
 }
