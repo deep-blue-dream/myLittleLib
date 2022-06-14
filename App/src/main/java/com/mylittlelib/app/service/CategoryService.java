@@ -81,4 +81,8 @@ public class CategoryService {
             throw  new RuntimeException("Invalid argument");
         }
     }
+
+    public List<Category> findAll() {
+        return categoryRepository.findAll();
+    }
 }

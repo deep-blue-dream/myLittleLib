@@ -22,6 +22,13 @@ public class CategoryController {
     UserService userService;
 
     @GetMapping
+    public ResponseEntity<?> findall(){
+        List<Category> categories = categoryService.findAll();
+        List<CategoryDTO> dtos =categories.stream().map(CategoryDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok(dtos);
+
+    }
+    @GetMapping("save")
     public ResponseEntity<?> save(@RequestBody  CategoryDTO categoryDTO) {
         try {
 
