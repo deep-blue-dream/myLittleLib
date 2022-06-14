@@ -64,4 +64,8 @@ public class BookmarkService {
             throw  new RuntimeException("Invalid argument");
         }
     }
+
+    public List<Bookmark> findAll() {
+        return bookmarkRepository.findAll();
+    }
 }
