@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("category")
+@CrossOrigin("*")
 public class CategoryController {
     @Autowired
     CategoryService categoryService;
@@ -28,18 +29,20 @@ public class CategoryController {
         return ResponseEntity.ok(dtos);
 
     }
-    @GetMapping("save")
+    @PostMapping("save")
     public ResponseEntity<?> save(@RequestBody  CategoryDTO categoryDTO) {
         try {
 
             User getUser = userService.findbyId(categoryDTO.getUserId());
             Category category = Category.builder()
                     .categoryTitle(categoryDTO.getCategoryTitle())
+                    .categoryDescription(categoryDTO.getCategoryDescription())
                     .user(getUser)
                     .build();
             Category registerCategory = categoryService.save(category);
             CategoryDTO responseCategoryDTO = CategoryDTO.builder()
                     .categoryIndex(registerCategory.getCategoryIndex())
+                    .categoryDescription(registerCategory.getCategoryDescription())
                     .userId(registerCategory.getUser().getUserId())
                     .categoryTitle(registerCategory.getCategoryTitle())
                     .build();
@@ -55,6 +58,7 @@ public class CategoryController {
             Category category = categoryService.findByTitle(categoryDTO.getCategoryTitle());
             CategoryDTO responseCategoryDTO = CategoryDTO.builder()
                     .categoryIndex(category.getCategoryIndex())
+                    .categoryDescription(categoryDTO.getCategoryDescription())
                     .categoryTitle(category.getCategoryTitle())
                     .userId(category.getUser().getUserId())
                     .build();
@@ -72,6 +76,7 @@ public class CategoryController {
             CategoryDTO responseCategoryDTO = CategoryDTO.builder()
                     .categoryIndex(category.getCategoryIndex())
                     .categoryTitle(category.getCategoryTitle())
+                    .categoryDescription(categoryDTO.getCategoryDescription())
                     .userId(category.getUser().getUserId())
                     .build();
             return ResponseEntity.ok(responseCategoryDTO);

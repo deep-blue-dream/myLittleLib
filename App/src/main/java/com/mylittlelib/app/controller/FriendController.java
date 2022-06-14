@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("friend")
+@CrossOrigin("*")
 public class FriendController {
 
     @Autowired

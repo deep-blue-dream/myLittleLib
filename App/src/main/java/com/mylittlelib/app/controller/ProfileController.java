@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("user/profile")
+@CrossOrigin("*")
 public class ProfileController {
     @Autowired
     private ProfileService profileService;

@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("bookmark")
+@CrossOrigin("*")
 public class BookmarkController {
     @Autowired
     BookmarkService bookmarkService;
@@ -28,7 +29,7 @@ public class BookmarkController {
         return ResponseEntity.ok(dtos);
     }
     //like 생성자는 일단 보류
-    @GetMapping("save")
+    @PostMapping("save")
     public ResponseEntity<?> saveBookmark(@RequestBody BookmarkDTO bookmarkDTO){
         try {
             Category getCategory = categoryService.findByTitle(bookmarkDTO.getCategorytitle());
