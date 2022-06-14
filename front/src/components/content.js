@@ -15,7 +15,7 @@ let todayMonth = (now.getMonth() + 1) > 9 ? (now.getMonth() + 1) : '0' + (now.ge
 let todayDate = now.getDate() > 9? now.getDate() : '0' + now.getDate();
 // 시간표시 부분 설정 완료
 
-const Content = ({ title , catrgory}) => {
+const Content = ({ title , category}) => {
   
   // modal test 부분 작성중
   const [modalOn, setModalOn] = useState(false);
@@ -49,7 +49,7 @@ const Content = ({ title , catrgory}) => {
       {/* 박스 flex 적용 tailwind */}
       {/* 유저가 가지고 있는 카테고리 컨텐츠 등록 박스 시작 */}
 
-      <CategoryList catrgorydata = {catrgory}/>
+      <CategoryList categorydata = {category}/>
 
       {/* 유저가 가지고 있는 카테고리 컨텐츠 등록 박스 종료 */}
 
