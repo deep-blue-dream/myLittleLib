@@ -21,8 +21,14 @@ public class BookmarkController {
     BookmarkService bookmarkService;
     @Autowired
     CategoryService categoryService;
-    //like 생성자는 일단 보류
     @GetMapping
+    public ResponseEntity<?> findAll(){
+        List<Bookmark> bookmarks = bookmarkService.findAll();
+        List<BookmarkDTO> dtos =bookmarks.stream().map(BookmarkDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok(dtos);
+    }
+    //like 생성자는 일단 보류
+    @GetMapping("save")
     public ResponseEntity<?> saveBookmark(@RequestBody BookmarkDTO bookmarkDTO){
         try {
             Category getCategory = categoryService.findByTitle(bookmarkDTO.getCategorytitle());
