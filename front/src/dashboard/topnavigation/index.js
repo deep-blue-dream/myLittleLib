@@ -2,6 +2,8 @@ import { useToggle } from '../provider/context';
 import { useState } from 'react';
 import LoginModal from '../../modal/LoginModal'
 import SignUpModal from '../../modal/SignUpModal';
+import { useSession } from "next-auth/react"
+
 
 
 export default function TopNavigation() {
@@ -15,6 +17,12 @@ export default function TopNavigation() {
   const signUpClicked = () => {
     setSignUpModalOn(true)
   }
+
+  // 세션 확인
+  const { data: session, status } = useSession();
+  if (status === "authenticated") 
+  console.log("session", session.user.name);
+  console.log("session", session);
 
   
   const { toggle } = useToggle();
