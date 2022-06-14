@@ -8,11 +8,7 @@ const HomePage = () => {
     { id: 2, category: 'MUSIC(카테고리 키워드)', title: '노래 목록', description: '힐링 음악 유튜브 영상들만 모음'},
     { id: 3, category: 'GUITAR(카테고리 키워드)', title: '기타 강좌', description: '취미 공부용 기타 동영상'},
     { id: 4, category: 'GUITAR(카테고리 키워드)', title: '기타 강좌', description: '취미 공부용 기타 동영상'},
-    { id: 5, category: 'GUITAR(카테고리 키워드)', title: '기타 강좌', description: '취미 공부용 기타 동영상'},
-    { id: 6, category: 'GUITAR(카테고리 키워드)', title: '기타 강좌', description: '취미 공부용 기타 동영상'},
-    { id: 7, category: 'GUITAR(카테고리 키워드)', title: '기타 강좌', description: '취미 공부용 기타 동영상'},
-    { id: 8, category: 'GUITAR(카테고리 키워드)', title: '기타 강좌', description: '취미 공부용 기타 동영상'},
-    { id: 9, category: 'GUITAR(카테고리 키워드)', title: '기타 강좌', description: '취미 공부용 기타 동영상'}
+    { id: 5, category: 'GUITAR(카테고리 키워드)', title: '기타 강좌', description: '취미 공부용 기타 동영상'}
   ];
   
   return (
