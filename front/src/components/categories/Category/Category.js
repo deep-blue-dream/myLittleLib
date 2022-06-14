@@ -23,7 +23,7 @@ const Category = (props) => {
               style={{ backgroundColor: '#fee4cb' }}
               >
               <div className="flex items-center justify-b">
-                <span className="text-sm">{props.id}.{props.category}</span>
+                <span className="text-sm">{props.id}</span>
               </div>
               <div className="text-center mb-4 mt-5">
                 <p className="text-base font-bold opacity-70">{props.title}</p>

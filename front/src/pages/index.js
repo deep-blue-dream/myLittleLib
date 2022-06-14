@@ -4,7 +4,7 @@ import Content from '../components/content';
 
 const HomePage = () => {
   const categoriesDummyData = [
-    { id: 1, category: 'JAVA(카테고리 키워드)', title: '자바 공부', description: '자바 공부 유튜브 영상들만 모음-생활코딩'},
+    { id: 1, title: '자바 공부', description: '자바 공부 유튜브 영상들만 모음-생활코딩'},
     { id: 2, category: 'MUSIC(카테고리 키워드)', title: '노래 목록', description: '힐링 음악 유튜브 영상들만 모음'},
     { id: 3, category: 'GUITAR(카테고리 키워드)', title: '기타 강좌', description: '취미 공부용 기타 동영상'},
     { id: 4, category: 'GUITAR(카테고리 키워드)', title: '기타 강좌', description: '취미 공부용 기타 동영상'},

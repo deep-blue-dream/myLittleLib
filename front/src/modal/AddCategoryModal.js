@@ -7,7 +7,7 @@ import { postCategoryAPI } from '../lib/api/category';
 const AddCategoryModal = ({ setModalOn}) => {
     
     // AddCategoryModal의 입력 form을 state로 관리
-    const [category, setCategory] = useState("");
+    
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     
@@ -15,19 +15,21 @@ const AddCategoryModal = ({ setModalOn}) => {
     const router = useRouter();
     
     // 입력받은 form 보내기 위한 함수 작성
-    const categoryChangeHandler = (event) =>{
-        setCategory(event.target.value);
+    
+    const categoryTitleChangeHandler = (event) =>{
         setTitle(event.target.value);
+    }
+    const categoryDesChangeHandler = (event) =>{
         setDescription(event.target.value);
     }
-    
+        
     
     // AddCategory 함수 작성
     const AddCategory = () =>{
         const data = {
-            category: category,
-            title: title,
-            description: description
+            userId: 1, //임의의 유저 번호 부여, BE 요청 방식과 naming 동일하게 진행
+            categoryTitle: title, //BE 요청 방식과 naming 동일하게 진행
+            categoryDescription: description //BE 요청 방식과 naming 동일하게 진행
         };
         postCategoryAPI(data);
     }
@@ -51,17 +53,17 @@ const AddCategoryModal = ({ setModalOn}) => {
                         {/* 양식 작성 시작 */}
                     <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">나만의 북마크 폴더 등록</h3>
                         <form className="space-y-3" action="#">
-                            <div>
-                                <label Htmlfor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">주제</label>
+                            {/* <div>
+                                <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">주제</label>
                                 <input type="text" name="category" id="category" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="음악/유튜브" required=""/>
+                            </div> */}
+                            <div>
+                                <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">제목</label>
+                                <input type="text" name="title" id="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" onChange={categoryTitleChangeHandler} placeholder="멜로디 전용" required=""/>
                             </div>
                             <div>
-                                <label Htmlfor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">제목</label>
-                                <input type="text" name="title" id="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="멜로디 전용" required=""/>
-                            </div>
-                            <div>
-                                <label Htmlfor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">설명</label>
-                                <input type="text" name="description" id="description" placeholder="공부할 때 듣기 좋은 음악 리스트" className="box-border w-72 h-40 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" required=""/>
+                                <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">설명</label>
+                                <input type="text" name="description" id="description" placeholder="공부할 때 듣기 좋은 음악 리스트" className="box-border w-72 h-40 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" onChange={categoryDesChangeHandler} required=""/>
                             </div>
                                 <div className="flex justify-between">
                                     {/* 공개여부 체크박스 설치예정 */}
