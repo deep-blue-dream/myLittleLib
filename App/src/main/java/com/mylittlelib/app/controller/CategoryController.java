@@ -33,7 +33,7 @@ public class CategoryController {
     public ResponseEntity<?> save(@RequestBody  CategoryDTO categoryDTO) {
         try {
 
-            User getUser = userService.findbyId(categoryDTO.getUserId());
+            User getUser = userService.findbyEmail(categoryDTO.getEmail());
             Category category = Category.builder()
                     .categoryTitle(categoryDTO.getCategoryTitle())
                     .categoryDescription(categoryDTO.getCategoryDescription())
@@ -43,7 +43,7 @@ public class CategoryController {
             CategoryDTO responseCategoryDTO = CategoryDTO.builder()
                     .categoryIndex(registerCategory.getCategoryIndex())
                     .categoryDescription(registerCategory.getCategoryDescription())
-                    .userId(registerCategory.getUser().getUserId())
+                    .email(registerCategory.getUser().getEmail())
                     .categoryTitle(registerCategory.getCategoryTitle())
                     .build();
             return ResponseEntity.ok(responseCategoryDTO);
@@ -60,7 +60,7 @@ public class CategoryController {
                     .categoryIndex(category.getCategoryIndex())
                     .categoryDescription(categoryDTO.getCategoryDescription())
                     .categoryTitle(category.getCategoryTitle())
-                    .userId(category.getUser().getUserId())
+                    .email(category.getUser().getEmail())
                     .build();
             return ResponseEntity.ok(responseCategoryDTO);
         }catch (Exception e){
@@ -77,7 +77,7 @@ public class CategoryController {
                     .categoryIndex(category.getCategoryIndex())
                     .categoryTitle(category.getCategoryTitle())
                     .categoryDescription(categoryDTO.getCategoryDescription())
-                    .userId(category.getUser().getUserId())
+                    .email(category.getUser().getEmail())
                     .build();
             return ResponseEntity.ok(responseCategoryDTO);
         } catch (Exception e) {

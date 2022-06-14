@@ -12,6 +12,7 @@ public class CategoryDTO {
     private String categoryTitle;
     private String categoryDescription;
     private String userId;
+    private String email;
     private String newCategoryTitle;
     private String newDescription;
 
@@ -20,6 +21,7 @@ public class CategoryDTO {
         this.categoryTitle = category.getCategoryTitle();
         this.categoryDescription = category.getCategoryDescription();
         this.userId = category.getUser().getUserId();
+        this.email = category.getUser().getEmail();
     }
 
 }

@@ -4,7 +4,6 @@ import com.mylittlelib.app.DTO.UserDTO;
 import com.mylittlelib.app.model.User;
 import com.mylittlelib.app.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
-import net.bytebuddy.implementation.bytecode.Throw;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,16 +37,15 @@ public class UserService {
 
 
     public User signin(UserDTO userDTO) {
-        final String userId = userDTO.getUserId();
+        final String email = userDTO.getEmail();
         final String password = userDTO.getPassword();
 
         try {
-            userIdIsNull(userId);
-            passwordIsNull(password);
-            if(userRepository.findUserByUserIdAndPassword(userId, password) == null){
+            emailIsNull(email);
+            if(userRepository.findUserByEmail(email)==null){
                 throw new RuntimeException("login failed");
             }
-            user = userRepository.findUserByUserId(userId);
+            user = userRepository.findUserByEmail(email);
         } catch (RuntimeException e){
             throw new RuntimeException(e.getMessage());
         }
@@ -83,29 +81,7 @@ public class UserService {
     }
 
 
-    public User update(UserDTO userDTO) {
-        final String userId = userDTO.getUserId();
-        final String password = userDTO.getPassword();
-        final String newPassword = userDTO.getNewPassword();
-        try {
-            userIdIsNull(userId);
-            passwordIsNull(password);
-            passwordIsNull(newPassword);
-            if(userRepository.findUserByUserId(userId) == null){
-                throw new RuntimeException("Invalid userId");
-            }
-            if(!user.getPassword().equals(password)){
-                log.error("failed");
-                throw new RuntimeException("not match");
-            }
-//            user = userRepository.findUserByUserId(userId);
-        } catch (RuntimeException e) {
-            throw new RuntimeException(e);
-        }
-        User userr = userRepository.findUserByUserId(userId);
-        userr.setPassword(newPassword);
-        return userRepository.save(userr);
-    }
+
     public User findbyId(String userId) {
         if(userRepository.findUserByUserId(userId) == null){
             throw new RuntimeException("invalid userId");
@@ -122,5 +98,11 @@ public class UserService {
         }
         return user;
     }
-}
 
+    public User findbyEmail(String email) {
+        if(userRepository.findUserByEmail(email) == null){
+            throw new RuntimeException("invalid email");
+        }
+        return userRepository.findUserByEmail(email);
+    }
+}
