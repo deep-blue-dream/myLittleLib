@@ -56,21 +56,5 @@ public class UserController {
         }
     }
 
-    @PostMapping("/update")
-    public ResponseEntity<?> update(@RequestBody UserDTO userDTO) {
-        try{
-            User user = userService.update(userDTO);
-            UserDTO responseUserDTO = UserDTO.builder()
-                    .userIndex(user.getUserIndex())
-                    .userId(user.getUserId())
-                    .email(user.getEmail())
-                    .password(user.getPassword())
-                    .categoryList(user.categoryTitletoString())
-                    .build();
-            return ResponseEntity.ok(responseUserDTO);
-        }catch (Exception e){
-            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
-            return  ResponseEntity.badRequest().body(responseDTO);
-        }
-    }
+
 }
