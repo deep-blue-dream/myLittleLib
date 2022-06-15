@@ -56,11 +56,15 @@ const AddBookMarkModal = ({ setBookModalOn }) => {
                             </div> */}
                             <div>
                                 <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">제목</label>
-                                <input type="text" name="title" id="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" onChange={bookMarkTitleChangeHandler} placeholder="멜로디 전용" required=""/>
+                                <input type="text" name="title" id="title"  placeholder="고양이 팝송" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" onChange={bookMarkTitleChangeHandler} required=""/>
                             </div>
                             <div>
                                 <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">설명</label>
-                                <input type="text" name="description" id="description" placeholder="공부할 때 듣기 좋은 음악 리스트" className="box-border w-72 h-40 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" onChange={bookMarkDesChangeHandler} required=""/>
+                                <input type="text" name="description" id="description" placeholder="나 공부할 때 들을 팝송" className="box-border w-72 h-40 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" onChange={bookMarkDesChangeHandler} required=""/>
+                            </div>
+                            <div>
+                                <label htmlFor="bookmarkURL" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">URL</label>
+                                <input type="text" name="bookmarkURL" id="bookmarkURL" placeholder="북마크 URL을 입력해주세요" className="box-border w-72 h-40 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" onChange={bookMarkDesChangeHandler} required=""/>
                             </div>
                                 <div className="flex justify-between">
                                     {/* 공개여부 체크박스 설치예정 */}
