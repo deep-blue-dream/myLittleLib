@@ -29,7 +29,7 @@ public class Category {
     @JoinColumn(name = "user_index")
     private User user;
 
-
+    @Builder.Default
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "category")
     private Set<Bookmark> bookmarkList = new HashSet<>();
 

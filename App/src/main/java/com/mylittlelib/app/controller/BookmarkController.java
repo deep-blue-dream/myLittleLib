@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 public class BookmarkController {
     @Autowired
     BookmarkService bookmarkService;
+
     @Autowired
     CategoryService categoryService;
     @GetMapping

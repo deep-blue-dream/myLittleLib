@@ -17,9 +17,6 @@ import java.util.Set;
 public class UserDTO {
     private Long userIndex;
     private String email;
-    private String userId;
-    private String password;
-    private String newPassword;
     private boolean isSignedIn = false;
 
     private String categoryList;
