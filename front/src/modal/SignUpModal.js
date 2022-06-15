@@ -72,7 +72,7 @@ return (
                 </br>
                 <div>
                     {/* google API 관련 코드 */}
-                    <button className="border h-10 inline-flex items-center justify-center rounded-lg shadow-md bg-white text-gray-700 w-full" onClick={() => signIn()}>
+                    <button className="border h-10 inline-flex items-center justify-center rounded-lg shadow-md bg-white text-gray-700 w-full" onClick={() => signIn("google")}>
                         <img
                         src="https://aid-frontend.prod.atl-paas.net/atlassian-id/front-end/3.4.2/static/media/google-logo.c21ca9d1.svg"
                         className="mr-3 w-4"/>
