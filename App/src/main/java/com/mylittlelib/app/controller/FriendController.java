@@ -10,26 +10,27 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("friend")
+@CrossOrigin("*")
 public class FriendController {
 
     @Autowired
     private FriendService friendService;
 
     // 친추
-    @GetMapping
-    public FriendDTO save(@RequestParam("userId") String userId, @RequestParam("friendId") String friendId){
-        return friendService.save(userId, friendId);
-    }
-
-    // 친삭
-    @DeleteMapping
-    public ResponseEntity<?> delete(@RequestParam("userId") String userId,@RequestParam("friendId") String friendId){
-        try {
-            boolean flag = friendService.delete(userId,friendId);
-            return ResponseEntity.ok().body(flag);
-        } catch (Exception e){
-            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
-            return ResponseEntity.badRequest().body(responseDTO);
-        }
-    }
+//    @GetMapping
+//    public FriendDTO save(@RequestParam("user") String userId, @RequestParam("friendId") String friendId){
+//        return friendService.save(userId, friendId);
+//    }
+//
+//    // 친삭
+//    @DeleteMapping
+//    public ResponseEntity<?> delete(@RequestParam("userId") String userId,@RequestParam("friendId") String friendId){
+//        try {
+//            boolean flag = friendService.delete(userId,friendId);
+//            return ResponseEntity.ok().body(flag);
+//        } catch (Exception e){
+//            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+//            return ResponseEntity.badRequest().body(responseDTO);
+//        }
+//    }
 }

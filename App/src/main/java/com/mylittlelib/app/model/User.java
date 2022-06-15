@@ -20,12 +20,6 @@ public class User {
     @Column
     private String email;
 
-    @Column(name = "user_id")
-    private String userId;
-
-    @Column
-    private String password;
-
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private Set<Category> categoryList = new HashSet<>();
 

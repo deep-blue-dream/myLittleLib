@@ -22,11 +22,14 @@ public class Category {
     @Column(name = "category_title")
     private String categoryTitle;
 
+    @Column(name = "category_description")
+    private String categoryDescription;
+
     @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class) // student와 major의 관계는 다대일 (N:1)
     @JoinColumn(name = "user_index")
     private User user;
 
-
+    @Builder.Default
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "category")
     private Set<Bookmark> bookmarkList = new HashSet<>();
 

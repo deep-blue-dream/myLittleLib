@@ -1,7 +1,4 @@
-import React, {useState} from 'react';
-
 const Category = (props) => {
-  const [isRendered, setIsRenderd] = useState(false);
   
   const selectCategoryHandler = () => {
     //   버튼 선택시 북마크 리스트 받아오는 함수? -북마크 리스트 작동 함수
@@ -23,7 +20,7 @@ const Category = (props) => {
               style={{ backgroundColor: '#fee4cb' }}
               >
               <div className="flex items-center justify-b">
-                <span className="text-sm">{props.id}.{props.category}</span>
+                <span className="text-sm">{props.id}</span>
               </div>
               <div className="text-center mb-4 mt-5">
                 <p className="text-base font-bold opacity-70">{props.title}</p>

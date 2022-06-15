@@ -49,6 +49,7 @@ public class CategoryService {
             titleIsNull(title);
             category = categoryRepository.findCategoryByCategoryTitle(title);
             category.setCategoryTitle(categoryDTO.getNewCategoryTitle());
+            category.setCategoryDescription(categoryDTO.getNewDescription());
         }catch (NullPointerException e) {
             throw new RuntimeException("Not found title");
         }catch (RuntimeException e){

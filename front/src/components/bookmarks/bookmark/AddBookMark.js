@@ -3,10 +3,10 @@ import React, { useState } from 'react';
 
 
 
-const AddCategory = () => {
+const AddBookMark = () => {
 
     //카테고리에 들어갈 form 항목을 state로 관리
-    const [category, setCategory] = useState("");
+    const [bookMark, setBookMark] = useState("");
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
 
@@ -14,7 +14,7 @@ const AddCategory = () => {
     // modal test 부분 작성중
     const [modalOn, setModalOn] = useState(false);
     const clicked = () => {
-      setModalOn(true)
+        setModalOn(true)
     }
   // modal test 부분 작성 완료
 
@@ -22,10 +22,10 @@ const AddCategory = () => {
   return (
     <>
 
-    {modalOn && < Modal setModalOn={setModalOn} setChoice={setChoice} />}
+    {modalOn && < Modal setModalOn={setModalOn} />}
     
     </>
   )
 }
 
-export default AddCategory
+export default AddBookMark

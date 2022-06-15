@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("category")
+@CrossOrigin("*")
 public class CategoryController {
     @Autowired
     CategoryService categoryService;
@@ -28,19 +29,21 @@ public class CategoryController {
         return ResponseEntity.ok(dtos);
 
     }
-    @GetMapping("save")
+    @PostMapping("save")
     public ResponseEntity<?> save(@RequestBody  CategoryDTO categoryDTO) {
         try {
 
-            User getUser = userService.findbyId(categoryDTO.getUserId());
+            User getUser = userService.findbyEmail(categoryDTO.getEmail());
             Category category = Category.builder()
                     .categoryTitle(categoryDTO.getCategoryTitle())
+                    .categoryDescription(categoryDTO.getCategoryDescription())
                     .user(getUser)
                     .build();
             Category registerCategory = categoryService.save(category);
             CategoryDTO responseCategoryDTO = CategoryDTO.builder()
                     .categoryIndex(registerCategory.getCategoryIndex())
-                    .userId(registerCategory.getUser().getUserId())
+                    .categoryDescription(registerCategory.getCategoryDescription())
+                    .email(registerCategory.getUser().getEmail())
                     .categoryTitle(registerCategory.getCategoryTitle())
                     .build();
             return ResponseEntity.ok(responseCategoryDTO);
@@ -55,8 +58,9 @@ public class CategoryController {
             Category category = categoryService.findByTitle(categoryDTO.getCategoryTitle());
             CategoryDTO responseCategoryDTO = CategoryDTO.builder()
                     .categoryIndex(category.getCategoryIndex())
+                    .categoryDescription(categoryDTO.getCategoryDescription())
                     .categoryTitle(category.getCategoryTitle())
-                    .userId(category.getUser().getUserId())
+                    .email(category.getUser().getEmail())
                     .build();
             return ResponseEntity.ok(responseCategoryDTO);
         }catch (Exception e){
@@ -72,7 +76,8 @@ public class CategoryController {
             CategoryDTO responseCategoryDTO = CategoryDTO.builder()
                     .categoryIndex(category.getCategoryIndex())
                     .categoryTitle(category.getCategoryTitle())
-                    .userId(category.getUser().getUserId())
+                    .categoryDescription(categoryDTO.getCategoryDescription())
+                    .email(category.getUser().getEmail())
                     .build();
             return ResponseEntity.ok(responseCategoryDTO);
         } catch (Exception e) {

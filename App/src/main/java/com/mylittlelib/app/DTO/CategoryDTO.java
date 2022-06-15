@@ -10,13 +10,16 @@ import lombok.*;
 public class CategoryDTO {
     private Long categoryIndex;
     private String categoryTitle;
-    private String userId;
+    private String categoryDescription;
+    private String email;
     private String newCategoryTitle;
+    private String newDescription;
 
     public CategoryDTO(Category category) {
         this.categoryIndex = category.getCategoryIndex();
         this.categoryTitle = category.getCategoryTitle();
-        this.userId = category.getUser().getUserId();
+        this.categoryDescription = category.getCategoryDescription();
+        this.email = category.getUser().getEmail();
     }
 
 }

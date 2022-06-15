@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("user/profile")
+@CrossOrigin("*")
 public class ProfileController {
     @Autowired
     private ProfileService profileService;
@@ -19,51 +20,51 @@ public class ProfileController {
     @Autowired
     private UserService userService;
 
-    @PostMapping
-    public ResponseEntity<?> save(@RequestBody ProfileDTO profileDTO){
-        try{
-            User user = userService.findById(profileDTO.getUserIndex());
-            Profile profile = Profile.builder().imageUrl(profileDTO.getImageUrl()).user(user).build();
-            Profile getProfile = profileService.save(profile);
-            ProfileDTO getProfileDTO = ProfileDTO.builder()
-                    .profileIndex(getProfile.getProfileIndex())
-                    .userIndex(user.getUserIndex())
-                    .imageUrl(getProfile.getImageUrl())
-                    .build();
-            return ResponseEntity.ok(getProfileDTO);
-        } catch (Exception e){
-            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
-            return ResponseEntity.badRequest().body(responseDTO);
-        }
-    }
-
-    @PutMapping("/update")
-    public ResponseEntity<?> update(@RequestBody ProfileDTO profileDTO) {
-        try {
-            User user = userService.findById(profileDTO.getUserIndex());
-            Profile profile = Profile.builder().imageUrl(profileDTO.getImageUrl()).user(user).build();
-            Profile getProfile = profileService.update(profile);
-            ProfileDTO getProfileDTO = ProfileDTO.builder()
-                    .profileIndex(getProfile.getProfileIndex())
-                    .userIndex(user.getUserIndex())
-                    .imageUrl(getProfile.getImageUrl())
-                    .build();
-            return ResponseEntity.ok().body(getProfileDTO);
-        } catch (Exception e){
-            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
-            return ResponseEntity.badRequest().body(responseDTO);
-        }
-    }
-
-    @DeleteMapping("/delete")
-    public ResponseEntity<?> delete(@RequestBody ProfileDTO profileDTO){
-        try {
-            boolean flag = profileService.delete(profileDTO.getUserIndex());
-            return ResponseEntity.ok().body(flag);
-        } catch (Exception e){
-            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
-            return ResponseEntity.badRequest().body(responseDTO);
-        }
-    }
+//    @PostMapping
+//    public ResponseEntity<?> save(@RequestBody ProfileDTO profileDTO){
+//        try{
+//            User user = userService.findById(profileDTO.getUserIndex());
+//            Profile profile = Profile.builder().imageUrl(profileDTO.getImageUrl()).user(user).build();
+//            Profile getProfile = profileService.save(profile);
+//            ProfileDTO getProfileDTO = ProfileDTO.builder()
+//                    .profileIndex(getProfile.getProfileIndex())
+//                    .userIndex(user.getUserIndex())
+//                    .imageUrl(getProfile.getImageUrl())
+//                    .build();
+//            return ResponseEntity.ok(getProfileDTO);
+//        } catch (Exception e){
+//            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+//            return ResponseEntity.badRequest().body(responseDTO);
+//        }
+//    }
+//
+//    @PutMapping("/update")
+//    public ResponseEntity<?> update(@RequestBody ProfileDTO profileDTO) {
+//        try {
+//            User user = userService.findById(profileDTO.getUserIndex());
+//            Profile profile = Profile.builder().imageUrl(profileDTO.getImageUrl()).user(user).build();
+//            Profile getProfile = profileService.update(profile);
+//            ProfileDTO getProfileDTO = ProfileDTO.builder()
+//                    .profileIndex(getProfile.getProfileIndex())
+//                    .userIndex(user.getUserIndex())
+//                    .imageUrl(getProfile.getImageUrl())
+//                    .build();
+//            return ResponseEntity.ok().body(getProfileDTO);
+//        } catch (Exception e){
+//            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+//            return ResponseEntity.badRequest().body(responseDTO);
+//        }
+//    }
+//
+//    @DeleteMapping("/delete")
+//    public ResponseEntity<?> delete(@RequestBody ProfileDTO profileDTO){
+//        try {
+//            boolean flag = profileService.delete(profileDTO.getUserIndex());
+//            return ResponseEntity.ok().body(flag);
+//        } catch (Exception e){
+//            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+//            return ResponseEntity.badRequest().body(responseDTO);
+//        }
+//    }
 
 }
