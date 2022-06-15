@@ -31,6 +31,7 @@
   "dependencies": {
     "@reach/portal": "^0.16.0",
     "create-next-app": "^12.1.6",
+    "dot-env": "^0.0.1",
     "dotenv": "^16.0.1",
     "dotenv-webpack": "^7.1.0",
     "next": "^12.0.7",
