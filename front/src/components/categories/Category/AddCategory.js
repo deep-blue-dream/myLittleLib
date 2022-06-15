@@ -14,7 +14,7 @@ const AddCategory = () => {
     // modal test 부분 작성중
     const [modalOn, setModalOn] = useState(false);
     const clicked = () => {
-    setModalOn(true)
+      setModalOn(true)
     }
   // modal test 부분 작성 완료
 

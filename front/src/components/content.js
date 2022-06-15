@@ -2,6 +2,8 @@ import AddCatoryModal from "../modal/AddCategoryModal";
 import { useState } from "react";
 import React from "react";
 import CategoryList from "./categories/CategoryList";
+import BookMarkList from "./bookmarks/BookMarkList";
+import AddBookMarkModal from "../modal/AddBookMarkModal";
 // import Modal from "../modal/modaltest";
 // import categories from "./categories/Categories";
 
@@ -15,15 +17,20 @@ let todayMonth = (now.getMonth() + 1) > 9 ? (now.getMonth() + 1) : '0' + (now.ge
 let todayDate = now.getDate() > 9? now.getDate() : '0' + now.getDate();
 // 시간표시 부분 설정 완료
 
-const Content = ({ title , category}) => {
+const Content = ({ title , category, bookMark}) => {
   
   // modal test 부분 작성중
   const [modalOn, setModalOn] = useState(false);
   const [choice, setChoice] = useState(false)
+  const [bookModalOn, setBookModalOn] = useState(false);
+  
+  
   const clicked = () => {
-  setModalOn(true)
-}
-  // modal test 부분 작성 완료
+    setModalOn(true)
+  }
+  const BookClicked = () => {
+      setBookModalOn(true)
+  }
  
   return(
     
@@ -109,39 +116,7 @@ const Content = ({ title , category}) => {
 
         {/* 북마크 리스트 시작 */}
         <div>
-          <div className="border-t solid border-gray-700 p-4 flex 2xl:items-start w-full hover:bg-gray-700">
-            <img
-              src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80"
-              alt="profile image"
-              className="object-cover w-10 h-10 rounded-full"
-            />
-            <div className="pl-4 w-full">
-              <div className="flex items-center justify-between w-full">
-                <div className="text-white font-medium">Stephanie</div>
-                  <div className="flex justify-center items-center cursor-pointer h-7 w-7">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="20"
-                      height="20"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="text-white"
-                    >
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-                    </svg>
-                  </div>
-              </div>
-              <p className="my-2 text-sm text-gray-400">
-                I got your first assignment. It was quite good. 🥳 We can
-                continue with the next assignment.
-              </p>
-              <p className="text-right text-gray-400 text-sm">Dec, 12</p>
-            </div>
-          </div>
+        <BookMarkList bookMarkData = {bookMark}/>
           {/* 북마크 리스트 1 종료*/}
           {/* 구분선 생성 */}
           <div className="border-t solid border-gray-700  flex 2xl:items-start w-full hover:bg-gray-700"></div>
@@ -164,13 +139,16 @@ const Content = ({ title , category}) => {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       className="feather feather-plus"
-                      onClick={clicked}>
+                      onClick={BookClicked}>
                       <path d="M12 5v14M5 12h14" />
                     </svg>
                   </button>
                 </div>
               </div>
             </div>
+            {/* modal 부분 작성중 */}
+            {bookModalOn && < AddBookMarkModal setBookModalOn={setBookModalOn} />}
+            {/* modal 부분 작성 완료 */}
           </div>
           {/* 북마크 등록 버튼 종료 */}
           

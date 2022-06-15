@@ -10,12 +10,19 @@ const HomePage = () => {
     { id: 4, category: 'GUITAR(카테고리 키워드)', title: '기타 강좌', description: '취미 공부용 기타 동영상'},
     { id: 5, category: 'GUITAR(카테고리 키워드)', title: '기타 강좌', description: '취미 공부용 기타 동영상'}
   ];
+  const bookMarkDummyData = [
+    { id: 1, title: '자바 공부', description: '자바 공부 유튜브 영상들만 모음-생활코딩', bookMarkURL : "https://www.youtube.com/watch?v=_nXwrx4Qyz8" },
+    { id: 2, title: '노래 목록', description: '힐링 음악 유튜브 영상들만 모음', bookMarkURL : "https://www.youtube.com/watch?v=_nXwrx4Qyz8" },
+    { id: 3, title: '기타 강좌', description: '취미 공부용 기타 동영상', bookMarkURL : "https://www.youtube.com/watch?v=_nXwrx4Qyz8" },
+    { id: 4, title: '기타 강좌', description: '취미 공부용 기타 동영상', bookMarkURL : "https://www.youtube.com/watch?v=_nXwrx4Qyz8" },
+    { id: 5, title: '기타 강좌', description: '취미 공부용 기타 동영상', bookMarkURL : "https://www.youtube.com/watch?v=_nXwrx4Qyz8" }
+  ];
   
   return (
   // 현재 홈페이지에 메인에서만 반응형으로 변경되도록 함. 
   // 현재 sideNavigation의 data.js의 아이콘 클릭에 따라서 링크관련된 data 전달되도록 조치해놓음.
   <>
-  <Content title="Home" category={categoriesDummyData}  />
+  <Content title="Home" category={categoriesDummyData} bookMark={bookMarkDummyData}/>
   </>
   );
 }
@@ -23,13 +30,7 @@ const HomePage = () => {
 // 1. 서버에서 받아온 category.json 데이터 props로 전달 작업
 
 export const getServerSideProps = async () => {
-  // 카테고리 버튼 자동 생성 부분 작성중(더미 데이터)
-    const categoriesDummyData = [
-      { id: 1, category: 'JAVA(카테고리 키워드)', title: '자바 공부', description: '자바 공부 유튜브 영상들만 모음-생활코딩'},
-      { id: 2, category: 'MUSIC(카테고리 키워드)', title: '노래 목록', description: '힐링 음악 유튜브 영상들만 모음'}
-    ];
 
-  
   try {
     // const res = await fetch('http://localhost:8080/api/users/categories');
     // const categories = await res.json();

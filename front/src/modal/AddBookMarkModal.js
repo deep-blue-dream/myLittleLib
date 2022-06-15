@@ -1,12 +1,10 @@
 import React, {useState} from 'react';
 import { useRouter } from 'next/router';
-import { postCategoryAPI } from '../lib/api/category';
+import { postBookMarkAPI } from '../lib/api/bookmark';
 
 
 
-const AddCategoryModal = ({ setModalOn}) => {
-    
-    // AddCategoryModal의 입력 form을 state로 관리
+const AddBookMarkModal = ({ setBookModalOn }) => {
     
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -16,32 +14,31 @@ const AddCategoryModal = ({ setModalOn}) => {
     
     // 입력받은 form 보내기 위한 함수 작성
     
-    const categoryTitleChangeHandler = (event) =>{
+    const bookMarkTitleChangeHandler = (event) =>{
         setTitle(event.target.value);
     }
-    const categoryDesChangeHandler = (event) =>{
+    const bookMarkDesChangeHandler = (event) =>{
         setDescription(event.target.value);
     }
         
-    
-    // AddCategory 함수 작성
-    const AddCategory = () =>{
+    const AddBookMark = () =>{
         const data = {
-            userId: 1, //임의의 유저 번호 부여, BE 요청 방식과 naming 동일하게 진행
-            categoryTitle: title, //BE 요청 방식과 naming 동일하게 진행
-            categoryDescription: description //BE 요청 방식과 naming 동일하게 진행
+            categoryId: 1, //임의의 유저 번호 부여, BE 요청 방식과 naming 동일하게 진행
+            bookMarkTitle: title, //BE 요청 방식과 naming 동일하게 진행
+            bookMarkDescription: description, //BE 요청 방식과 naming 동일하게 진행
+            bookMarkURL: bookMarkURL
         };
-        postCategoryAPI(data);
+        postBookMarkAPI(data);
     }
 
     // 버튼 입력시 발생하는 이벤트 핸들러
-    const commitClickHandler = () => {
-        setModalOn(false)
+    const bookMarkCommitClickHandler = () => {
+        setBookModalOn(false)
         // 이곳에 라우터 보내는 작업 진행? push함수 쓰는거.
-        AddCategory();
+        AddBookMark();
     }
-    const cancelClickHandler = () => {
-        setModalOn(false)
+    const bookMarkCancelClickHandler = () => {
+        setBookModalOn(false)
     }
     // 버튼 입력시 발생하는 이벤트 핸들러 종료
     
@@ -51,7 +48,7 @@ const AddCategoryModal = ({ setModalOn}) => {
                 <div className="flex-col justify-center  bg-gray-900 py-10 px-20 border-4 border-white rounded-xl ">
                     <div className="py-6 px-6 lg:px-8">
                         {/* 양식 작성 시작 */}
-                    <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">나만의 카테고리 등록</h3>
+                    <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">나만의 북마크 등록</h3>
                         <form className="space-y-3" action="#">
                             {/* <div>
                                 <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">주제</label>
@@ -59,11 +56,11 @@ const AddCategoryModal = ({ setModalOn}) => {
                             </div> */}
                             <div>
                                 <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">제목</label>
-                                <input type="text" name="title" id="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" onChange={categoryTitleChangeHandler} placeholder="멜로디 전용" required=""/>
+                                <input type="text" name="title" id="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" onChange={bookMarkTitleChangeHandler} placeholder="멜로디 전용" required=""/>
                             </div>
                             <div>
                                 <label htmlFor="description" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">설명</label>
-                                <input type="text" name="description" id="description" placeholder="공부할 때 듣기 좋은 음악 리스트" className="box-border w-72 h-40 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" onChange={categoryDesChangeHandler} required=""/>
+                                <input type="text" name="description" id="description" placeholder="공부할 때 듣기 좋은 음악 리스트" className="box-border w-72 h-40 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" onChange={bookMarkDesChangeHandler} required=""/>
                             </div>
                                 <div className="flex justify-between">
                                     {/* 공개여부 체크박스 설치예정 */}
@@ -75,8 +72,8 @@ const AddCategoryModal = ({ setModalOn}) => {
                                     </div>
                                         <a href="#" class="text-sm text-blue-700 hover:underline dark:text-blue-500">Lost Password?</a> */}
                                 <div className="flex">
-                                    <button onClick={commitClickHandler} className=" rounded px-4 py-2 text-white  bg-green-400 "> 등록</button>
-                                    <button onClick={cancelClickHandler} className="rounded px-4 py-2 ml-4 text-white bg-blue-500 ">취소</button>
+                                    <button onClick={bookMarkCommitClickHandler} className=" rounded px-4 py-2 text-white  bg-green-400 "> 등록</button>
+                                    <button onClick={bookMarkCancelClickHandler} className="rounded px-4 py-2 ml-4 text-white bg-blue-500 ">취소</button>
                                 </div>
                             </div>
                         </form>    
@@ -87,4 +84,4 @@ const AddCategoryModal = ({ setModalOn}) => {
     );
 }
 
-export default AddCategoryModal
+export default AddBookMarkModal
