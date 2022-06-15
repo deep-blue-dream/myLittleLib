@@ -43,6 +43,7 @@ public class UserController {
         try{
             User user = userService.signin(userDTO);
             UserDTO responseUserDTO = UserDTO.builder()
+                    .isSignedIn(true)
                     .userIndex(user.getUserIndex())
                     .userId(user.getUserId())
                     .password(user.getPassword())

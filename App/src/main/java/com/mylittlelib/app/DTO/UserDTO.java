@@ -20,6 +20,7 @@ public class UserDTO {
     private String userId;
     private String password;
     private String newPassword;
+    private boolean isSignedIn = false;
 
     private String categoryList;
     private Set<Friend> friendList;

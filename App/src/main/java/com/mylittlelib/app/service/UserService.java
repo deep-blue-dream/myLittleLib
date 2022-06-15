@@ -38,7 +38,6 @@ public class UserService {
 
     public User signin(UserDTO userDTO) {
         final String email = userDTO.getEmail();
-        final String password = userDTO.getPassword();
 
         try {
             emailIsNull(email);
