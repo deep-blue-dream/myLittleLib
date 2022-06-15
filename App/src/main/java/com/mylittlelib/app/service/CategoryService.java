@@ -1,12 +1,16 @@
 package com.mylittlelib.app.service;
 
+import com.mylittlelib.app.DTO.BookmarkDTO;
 import com.mylittlelib.app.DTO.CategoryDTO;
+import com.mylittlelib.app.model.Bookmark;
 import com.mylittlelib.app.model.Category;
+import com.mylittlelib.app.model.User;
 import com.mylittlelib.app.repository.CategoryRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -85,5 +89,32 @@ public class CategoryService {
 
     public List<Category> findAll() {
         return categoryRepository.findAll();
+    }
+
+    public List<CategoryDTO> totalInfo(User user) {
+        List<Category> categoryList = categoryRepository.findByUser(user);
+        List<CategoryDTO> categoryDTOList = new ArrayList<>();
+        for (Category category:categoryList) {
+
+            CategoryDTO categoryDTO = CategoryDTO
+                    .builder().categoryDescription(category.getCategoryDescription())
+                    .categoryIndex(category.getCategoryIndex())
+                    .categoryTitle(category.getCategoryTitle())
+                    .bookmarkDTOList(new ArrayList<>())
+                    .build();
+            List<BookmarkDTO> bookmarkDTOList = categoryDTO.getBookmarkDTOList();
+            for (Bookmark bookmark: category.getBookmarkList()) {
+                BookmarkDTO bookmarkDTO = BookmarkDTO
+                        .builder()
+                        .bookmarkIndex(bookmark.getBookmarkIndex())
+                        .bookmarkTitle(bookmark.getBookmarkTitle())
+                        .bookmarkUrl(bookmark.getBookmarkurl())
+                        .build();
+                bookmarkDTOList.add(bookmarkDTO);
+                System.out.println(category.getCategoryTitle()+"ㄷㄷ "+bookmark.getBookmarkTitle());
+            }
+            categoryDTOList.add(categoryDTO);
+        }
+        return categoryDTOList;
     }
 }

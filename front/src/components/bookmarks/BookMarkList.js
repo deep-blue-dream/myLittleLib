@@ -3,7 +3,7 @@ import BookMark from './bookmark/BookMark'
 
 
 const BookMarkList = (props) => {
-    // console.log(props); 값 넘어오는 것은 확인
+
     const bookMarkList = props.bookMarkData.map(bookMark => (
         <BookMark key={bookMark.id}
         id={bookMark.id}

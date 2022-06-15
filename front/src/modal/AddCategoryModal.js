@@ -5,16 +5,11 @@ import { postCategoryAPI } from '../lib/api/category';
 
 
 const AddCategoryModal = ({ setModalOn}) => {
-    
-    // AddCategoryModal의 입력 form을 state로 관리
-    
+        
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     
-    // 라우터로 관리하기 위함
     const router = useRouter();
-    
-    // 입력받은 form 보내기 위한 함수 작성
     
     const categoryTitleChangeHandler = (event) =>{
         setTitle(event.target.value);
@@ -34,16 +29,14 @@ const AddCategoryModal = ({ setModalOn}) => {
         postCategoryAPI(data);
     }
 
-    // 버튼 입력시 발생하는 이벤트 핸들러
+   
     const commitClickHandler = () => {
         setModalOn(false)
-        // 이곳에 라우터 보내는 작업 진행? push함수 쓰는거.
         AddCategory();
     }
     const cancelClickHandler = () => {
         setModalOn(false)
     }
-    // 버튼 입력시 발생하는 이벤트 핸들러 종료
     
     return (
         <div className="bg-black bg-opacity-95 opacity-100 fixed inset-0 z-50">
@@ -53,10 +46,6 @@ const AddCategoryModal = ({ setModalOn}) => {
                         {/* 양식 작성 시작 */}
                     <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">나만의 카테고리 등록</h3>
                         <form className="space-y-3" action="#">
-                            {/* <div>
-                                <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">주제</label>
-                                <input type="text" name="category" id="category" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="음악/유튜브" required=""/>
-                            </div> */}
                             <div>
                                 <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">제목</label>
                                 <input type="text" name="title" id="title" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" onChange={categoryTitleChangeHandler} placeholder="멜로디 전용" required=""/>

@@ -12,7 +12,6 @@ const AddBookMarkModal = ({ setBookModalOn }) => {
     // 라우터로 관리하기 위함
     const router = useRouter();
     
-    // 입력받은 form 보내기 위한 함수 작성
     
     const bookMarkTitleChangeHandler = (event) =>{
         setTitle(event.target.value);
@@ -50,10 +49,6 @@ const AddBookMarkModal = ({ setBookModalOn }) => {
                         {/* 양식 작성 시작 */}
                     <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">나만의 북마크 등록</h3>
                         <form className="space-y-3" action="#">
-                            {/* <div>
-                                <label htmlFor="category" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">주제</label>
-                                <input type="text" name="category" id="category" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="음악/유튜브" required=""/>
-                            </div> */}
                             <div>
                                 <label htmlFor="title" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">제목</label>
                                 <input type="text" name="title" id="title"  placeholder="고양이 팝송" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" onChange={bookMarkTitleChangeHandler} required=""/>

@@ -11,12 +11,10 @@ const AddCategory = () => {
     const [description, setDescription] = useState("");
 
 
-    // modal test 부분 작성중
     const [modalOn, setModalOn] = useState(false);
     const clicked = () => {
       setModalOn(true)
     }
-  // modal test 부분 작성 완료
 
 
   return (

@@ -6,17 +6,12 @@ const Category = (props) => {
 
   
     return (
-    // 이곳에 구현내용 붙여넣기
-    // 카테고리 버튼 자동 생성 부분 작성중(더미데이터)
     <>
-    {/* 버튼 형식으로 바꾸기 위해 button 추가함 */}
     <button onClick={selectCategoryHandler} className="w-full md:w-4/12">
-        {/* <div className="w-full md:w-4/12"> */}
           <div className="p-2">
             {/* 박스1 설정 */}
             <div
               className="p-4 rounded-3xl"
-              // 색상 설정
               style={{ backgroundColor: '#fee4cb' }}
               >
               <div className="flex items-center justify-b">
@@ -35,11 +30,8 @@ const Category = (props) => {
               </div>
             </div>
           </div>
-        {/* </div> */}
     </button>
-
     </>
-// 카테고리 버튼 확인용 더미데이터 종료
   )
 }
 
