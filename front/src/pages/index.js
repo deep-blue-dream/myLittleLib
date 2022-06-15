@@ -1,10 +1,11 @@
 import Content from '../components/content';
 import { useState } from 'react';
-import { useSession } from 'next-auth/react';
+import { getSession, useSession } from 'next-auth/react';
+import { data } from 'autoprefixer';
 
 const HomePage = (props) => {  
   const { data: session} = useSession();
-  const [cate, setCate] = useState([]);
+  console.log("주냐",[session?.user.email]);
   const userCategories = props.categories;
   // const userBookMarks = props.userInfo.userBookMarks;
   const userBookMarks = props.userBookMarks;
@@ -15,7 +16,7 @@ const HomePage = (props) => {
  
     )
   }
-
+  console.log("나와라", props.categories);
   return (
   <>
   <Content title="Home"category={userCategories}/>
@@ -24,6 +25,9 @@ const HomePage = (props) => {
   </>
   )
 }
+
+
+
 export const getServerSideProps = async () => {
   try {
     const res = await fetch('http://localhost:8080/totalinfo',{

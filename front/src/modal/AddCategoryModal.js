@@ -56,13 +56,13 @@ const AddCategoryModal = ({ setModalOn}) => {
                             </div>
                                 <div className="flex justify-between">
                                     {/* 공개여부 체크박스 설치예정 */}
-                                    {/* <div class="flex items-start">
-                                    <div class="flex items-center h-5"> */}
-                                        {/* <input id="remember" type="checkbox" value="" class="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800" required=""/>
+                                    {/* <div className="flex items-start">
+                                    <div className="flex items-center h-5"> */}
+                                        {/* <input id="remember" type="checkbox" value="" className="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800" required=""/>
                                     </div>
-                                        <label for="remember" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
+                                        <label for="remember" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
                                     </div>
-                                        <a href="#" class="text-sm text-blue-700 hover:underline dark:text-blue-500">Lost Password?</a> */}
+                                        <a href="#" className="text-sm text-blue-700 hover:underline dark:text-blue-500">Lost Password?</a> */}
                                 <div className="flex">
                                     <button onClick={commitClickHandler} className=" rounded px-4 py-2 text-white  bg-green-400 "> 등록</button>
                                     <button onClick={cancelClickHandler} className="rounded px-4 py-2 ml-4 text-white bg-blue-500 ">취소</button>
