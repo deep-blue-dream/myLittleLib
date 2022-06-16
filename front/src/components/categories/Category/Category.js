@@ -1,8 +1,13 @@
 const Category = (props) => {
+
   
   const selectCategoryHandler = () => {
     //   버튼 선택시 북마크 리스트 받아오는 함수? -북마크 리스트 작동 함수
-}
+
+    // console.log("카테고리 하나 6번 줄",props.id);
+    
+    props.clickHandler(props.id);
+  }
 
   
     return (

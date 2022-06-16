@@ -35,15 +35,15 @@ export default function TopNavigation() {
       email: email,
     };
 
-    const user = postSignInAPI(data);
+    // const user = postSignInAPI(data);
   
-    // console.log(user);
+    // // console.log(user);
     
     
-    user.then(result => {
-      // console.log(result);
-      // result.signedIn && router.push('/admin/documentation');
-    });
+    // user.then(result => {
+    //   // console.log(result);
+    //   // result.signedIn && router.push('/admin/documentation');
+    // });
 
     // console.log(a);
 

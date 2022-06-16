@@ -7,8 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @Slf4j
 public class UserService {
@@ -44,7 +42,7 @@ public class UserService {
         } catch (RuntimeException e){
             throw new RuntimeException(e.getMessage());
         }
-        return userRepository.save(user);
+        return userRepository.findUserByEmail(email);
     }
 
     private void emailIsNull(String email){
@@ -55,7 +53,9 @@ public class UserService {
     }
 
     public User findbyEmail(String email) {
+        log.error(email);
         if(userRepository.findUserByEmail(email) == null){
+            log.error("에러 내용이 뭐니");
             throw new RuntimeException("invalid email");
         }
         return userRepository.findUserByEmail(email);

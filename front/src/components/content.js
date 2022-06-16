@@ -5,7 +5,7 @@ import CategoryList from "./categories/CategoryList";
 import BookMarkList from "./bookmarks/BookMarkList";
 import AddBookMarkModal from "../modal/AddBookMarkModal";
 import { useSession } from "next-auth/react"
-import { postSignInAPI, login2 } from "../lib/api/user";
+
 import { Router, useRouter } from "next/router";
 import Docs from './docs/index';
 
@@ -20,7 +20,17 @@ let todayDate = now.getDate() > 9? now.getDate() : '0' + now.getDate();
 
 
 
-const Content = ({ title , category}) => {
+const Content = (props) => {
+  const categoryProps = props.properties;
+  const bookMarkProps = [];
+
+  // props.properties.bookmarkDTOList.forEach(element => {
+  //   bookMarkProps.push(element);
+  // });
+
+  console.log(bookMarkProps);
+
+  // console.log(props.properties);
   let email;
 
   const router = useRouter();
@@ -29,7 +39,9 @@ const Content = ({ title , category}) => {
   const [bookModalOn, setBookModalOn] = useState(false);
   const [userEmail,setUserEmail] = useState({});
   const { data: session, status } = useSession();
-  
+
+  const [currCategory, setCurrCategory] = useState('');
+  const [currBookMark, setCurrBookMark] = useState([]);
 
   const clicked = () => {
     setModalOn(true)
@@ -38,12 +50,23 @@ const Content = ({ title , category}) => {
       setBookModalOn(true)
   }
 
-  const testAPI = async (data) => {
-      const res = await postSignInAPI(data);
-      const user = await res.json();
-      console.log('여기', user);
-      return user;
+  const clickHandler = (id) => {
+    setCurrCategory(id);
+    categoryProps.forEach(element => {
+      if (element.categoryIndex == id){
+        setCurrBookMark(element.bookmarkDTOList);
+        console.log("58번줄",element.bookmarkDTOList);
+      }
+    });
+    // setCurrBookMark(categoryProps[id-1].bookmarkDTOList);
   }
+
+  // const testAPI = async (data) => {
+  //     const res = await postSignInAPI(data);
+  //     const user = await res.json();
+      // console.log('여기', user);
+  //     return user;
+  // }
 
   
  
@@ -53,9 +76,9 @@ const Content = ({ title , category}) => {
       email : email
     };
 
-  const user = testAPI(data);
-  const res = user.then(result => result);
-  const res2 = res.then(result => result);
+  // const user = testAPI(data);
+  // const res = user.then(result => result);
+  // const res2 = res.then(result => result);
   
   
   if(session) { 
@@ -65,7 +88,7 @@ const Content = ({ title , category}) => {
   <div className="flex flex-wrap">
     <div className="w-full lg:w-8/12 bg-gray-800 py-6 px-6 rounded-3xl">
       <div className="flex justify-between text-white items-center mb-8">
-        <p className="text-4xl  font-bold">{title}</p>
+        {/* <p className="text-4xl  font-bold">{title}</p> */}
         <p className="text-2xl text-yellow-300 font-bold">{(todayYear-2000) + '.' + todayMonth + '.' + todayDate + '.' + dayOfWeek + '요일' }</p>
       </div>
       <div className="flex flex-wrap justify-between items-center pb-8">
@@ -82,7 +105,8 @@ const Content = ({ title , category}) => {
       <div className="flex flex-wrap">
       {/* 박스 flex 적용 tailwind */}
       {/* 유저가 가지고 있는 카테고리 컨텐츠 등록 박스 시작 */}
-      <CategoryList categorydata = {category}/>
+      <CategoryList categoryProps={categoryProps} clickHandler = {clickHandler}/> 
+      {/* /categorydata = {category} */}
       {/* 유저가 가지고 있는 카테고리 컨텐츠 등록 박스 종료 */}
 
         {/* 새 카테고리 등록하기 */}    
@@ -138,8 +162,7 @@ const Content = ({ title , category}) => {
         </div>
         {/* 북마크 리스트 시작 */}
         <div>
-        {/* <BookMarkList userBookMarks = {userBookMarks}/> */}
-        {/* <BookMarkList bookMarkData = {bookMarkData}/> */}
+        <BookMarkList  bookMarkData= {currBookMark} />
           {/* 북마크 리스트 1 종료*/}
 
 
@@ -174,7 +197,7 @@ const Content = ({ title , category}) => {
               </div>
             </div>
             {/* modal 부분 작성중 */}
-            {/* {bookModalOn && < AddBookMarkModal setBookModalOn={setBookModalOn} />} */}
+            {bookModalOn && < AddBookMarkModal setBookModalOn={setBookModalOn} />}
             {/* modal 부분 작성 완료 */}
           </div>
           {/* 북마크 등록 버튼 종료 */}

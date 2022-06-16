@@ -6,11 +6,10 @@ const BookMarkList = (props) => {
 
     const bookMarkList = props.bookMarkData.map(bookMark => (
         <BookMark key={bookMark.id}
-        id={bookMark.id}
-        bookMark = {bookMark}
-        title={bookMark.title}
+        id={bookMark.bookmarkIndex}
+        title={bookMark.bookmarkTitle}
         description={bookMark.description}
-        bookMarkURL={bookMark.bookMarkURL}
+        bookMarkURL={bookMark.bookmarkUrl}
         />
     ));
 

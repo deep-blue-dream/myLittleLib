@@ -1,55 +1,54 @@
 import Content from '../components/content';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { getSession, useSession } from 'next-auth/react';
-import { data } from 'autoprefixer';
+import { postSignUpAPI } from '../lib/api/user';
 
-const HomePage = (props) => {  
+
+const HomePage = () => {  
+
   const { data: session} = useSession();
-  console.log("주냐",[session?.user.email]);
-  const userCategories = props.categories;
-  // const userBookMarks = props.userInfo.userBookMarks;
-  const userBookMarks = props.userBookMarks;
+  // console.log("주냐",[session?.user.email][0]);
+  const [properties, setProperties] = useState({});
 
-  if (session == null) {
-  return (
-  <Content title="Home" category={[]}/>
- 
-    )
-  }
-  console.log("나와라", props.categories);
-  return (
-  <>
-  <Content title="Home"category={userCategories}/>
+  // [session?.user.email][0]
   
-  {/* bookMarkData = {userBookMarks} */}
-  </>
-  )
-}
+  const userEmail ={
+    email : "deepbluedream8714@gmail.com"
+  }
 
-
-
-export const getServerSideProps = async () => {
-  try {
-    const res = await fetch('http://localhost:8080/totalinfo',{
+  useEffect(async () => {
+    const res = await fetch('http://localhost:8080/category/totalinfo',{
       method:'POST',
       headers : {
           'Content-Type':'application/json'
       },
-      body: JSON.stringify(data)
-    });
-    const categories = await res.json();
-    console.log(categories);
-    
-    return { 
-      // props: {categoriesTest}
-      props: { categories } 
-      // 그 프로퍼티의 값은 객체
-    }
+      body: JSON.stringify(userEmail)
+    }); 
 
-  } catch (error) { 
-    console.log(error);
-    return { props: {} }
-    }
+    const responsedData = await res.json();
+    
+    setProperties(responsedData);
+  
+  }, []);
+
+  const signup = () => {
+    const data = {
+      email: session?.user.email,
+    };
+    postSignUpAPI(data);
+    console.log("실행됨?");
+  };
+  
+  if (session == null) {
+    return (
+      <Content title="Home" />
+      )
   }
-// 1. 서버에서 받아온 category.json 데이터 props로 전달 작업
+    return (     
+   <Content properties={properties} title="status" /> 
+   )
+  
+    
+}
+
 export default HomePage;
