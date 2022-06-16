@@ -69,7 +69,6 @@ public class ProfileService {
 
 
             System.out.println(getProfile.getProfileIndex());
-            System.out.println(getProfile.getUser().getUserId());
             System.out.println(getProfile.getImageUrl());
             getUser.setProfile(null);
             profileRepository.delete(getProfile);

@@ -20,16 +20,12 @@ public class UserController {
     public ResponseEntity<?> save(@RequestBody UserDTO userDTO) {
         try{
             User user = User.builder()
-                    .userId(userDTO.getUserId())
                     .email(userDTO.getEmail())
-                    .password(userDTO.getPassword())
                     .build();
             User registerUser = userService.save(user);
             UserDTO responseUserDTO = UserDTO.builder()
                     .userIndex(registerUser.getUserIndex())
-                    .userId(registerUser.getUserId())
                     .email(registerUser.getEmail())
-                    .password(registerUser.getPassword())
                     .build();
             return ResponseEntity.ok(responseUserDTO);
         }catch (Exception e){
@@ -45,8 +41,6 @@ public class UserController {
             UserDTO responseUserDTO = UserDTO.builder()
                     .isSignedIn(true)
                     .userIndex(user.getUserIndex())
-                    .userId(user.getUserId())
-                    .password(user.getPassword())
                     .email(user.getEmail())
                     .categoryList(user.categoryTitletoString())
                     .build();
