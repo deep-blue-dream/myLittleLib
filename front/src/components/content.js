@@ -1,34 +1,29 @@
 import AddCatoryModal from "../modal/AddCategoryModal";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import React from "react";
 import CategoryList from "./categories/CategoryList";
 import BookMarkList from "./bookmarks/BookMarkList";
 import AddBookMarkModal from "../modal/AddBookMarkModal";
 import { useSession } from "next-auth/react"
-import Snippet from './docs/snippet';
-import { FileIcon, FolderIcon, JsIcon } from './docs/icons';
 import { postSignInAPI, login2 } from "../lib/api/user";
-import { responseSymbol } from "next/dist/server/web/spec-compliant/fetch-event";
 import { Router, useRouter } from "next/router";
-import Docs from './docs/index'
-// import Modal from "../modal/modaltest";
-// import categories from "./categories/Categories";
+import Docs from './docs/index';
 
-// 시간 표시 부분 설정 시작
 
+// 시간표시 부분 설정 완료
 let now = new Date();
 const week = ['일', '월', '화', '수', '목', '금', '토'];
 let dayOfWeek = week[now.getDay()];
 let todayYear = now.getFullYear();
 let todayMonth = (now.getMonth() + 1) > 9 ? (now.getMonth() + 1) : '0' + (now.getMonth()+ 1);
 let todayDate = now.getDate() > 9? now.getDate() : '0' + now.getDate();
-// 시간표시 부분 설정 완료
 
-const Content = ({ title , category, bookMark}) => {
+
+
+const Content = ({ title , category}) => {
   let email;
 
   const router = useRouter();
-  // modal test 부분 작성중
   const [modalOn, setModalOn] = useState(false);
   const [choice, setChoice] = useState(false)
   const [bookModalOn, setBookModalOn] = useState(false);
@@ -59,13 +54,12 @@ const Content = ({ title , category, bookMark}) => {
     };
 
   const user = testAPI(data);
-  console.log(user);
   const res = user.then(result => result);
-  console.log("해치웠나?",res);
   const res2 = res.then(result => result);
-  console.log("혹시?",res2);
-    if(session) { 
-        
+  
+  
+  if(session) { 
+
   return( 
   // 컨텐츠 부분 헤더 디자인
   <div className="flex flex-wrap">
@@ -83,12 +77,12 @@ const Content = ({ title , category, bookMark}) => {
         </div>
       </div>
       {/* 헤더 디자인 종료 */}
+
+
       <div className="flex flex-wrap">
       {/* 박스 flex 적용 tailwind */}
       {/* 유저가 가지고 있는 카테고리 컨텐츠 등록 박스 시작 */}
-
       <CategoryList categorydata = {category}/>
-
       {/* 유저가 가지고 있는 카테고리 컨텐츠 등록 박스 종료 */}
 
         {/* 새 카테고리 등록하기 */}    
@@ -102,7 +96,6 @@ const Content = ({ title , category, bookMark}) => {
                 </div>
                   {/* 버튼 중앙 정렬 div wrap 기능 line 100~101,122~123 - */}
                   {/* TailwindCss는 className으로 css적용하기 때문에 w-12등의 className이 지원되지 않아 Wrapper Div를 활용하여 버튼 중앙정렬을 시킬 수 있다. */}
-                  {/* https://blog.chosunghyun.com/kr-tailwind-css-docs-basic-study/ */}
                 <div className="flex max-h-45">
                   <div className="m-auto">
                     <div className="flex justify-between mb-4 pt-2 relative">
@@ -118,14 +111,14 @@ const Content = ({ title , category, bookMark}) => {
                             strokeWidth="2"
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            className="feather feather-plus"
-                            >
+                            className="feather feather-plus">
                             <path d="M12 5v14M5 12h14" />
                           </svg>
                         </button>
                       </div>
                     </div>
                     {/* 버튼 중앙 정렬 div wrap 기능 종료  */}
+
                   </div>
                 </div>
               </div>
@@ -135,7 +128,6 @@ const Content = ({ title , category, bookMark}) => {
             {/* modal 부분 작성 완료 */}
           </div>
           {/* 박스 종료 */}
-          {/* 박스 생성을 컨테이너로 작업, 추가시 컨테이너 추가하는 방식으로 진행+List 및 flex 조건으로 생성하도록 코드 */}
         </div>
       </div>
     {/* 북마크 리스트 추가 */}
@@ -144,14 +136,18 @@ const Content = ({ title , category, bookMark}) => {
         <div className="flex text-white text-2xl pb-6 font-bold">
           <p>북마크 리스트</p>
         </div>
-
         {/* 북마크 리스트 시작 */}
         <div>
-        <BookMarkList bookMarkData = {bookMark}/>
+        {/* <BookMarkList userBookMarks = {userBookMarks}/> */}
+        {/* <BookMarkList bookMarkData = {bookMarkData}/> */}
           {/* 북마크 리스트 1 종료*/}
+
+
           {/* 구분선 생성 */}
           <div className="border-t solid border-gray-700  flex 2xl:items-start w-full hover:bg-gray-700"></div>
           {/* 구분선 완료 */}
+
+          
           <p className="text-base font-bold opacity-40 mt-4 text-white text-center">새 북마크 등록하기</p>
           <div className="flex max-h-45">
             <div className="m-auto">
@@ -178,7 +174,7 @@ const Content = ({ title , category, bookMark}) => {
               </div>
             </div>
             {/* modal 부분 작성중 */}
-            {bookModalOn && < AddBookMarkModal setBookModalOn={setBookModalOn} />}
+            {/* {bookModalOn && < AddBookMarkModal setBookModalOn={setBookModalOn} />} */}
             {/* modal 부분 작성 완료 */}
           </div>
           {/* 북마크 등록 버튼 종료 */}
@@ -197,18 +193,5 @@ return (
 );
 }
 
-// export const getStaticProps = async () => {
-//   try {
-//     const res = await postSignInAPI(data);
-//     const user = await res.json();
-//     console.log(user);
-
-//     return {
-//       props: { user }
-//     }
-//   } catch (error) {
-//     return { props: {} }
-//   }
-// }
 
 export default Content;

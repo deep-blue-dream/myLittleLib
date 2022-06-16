@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 const BookMark = (props) => {
-    // console.log(props);
+
   const [isBookRendered, setIsBookRenderd] = useState(false);
   
 
@@ -45,7 +45,6 @@ const BookMark = (props) => {
             </div>
         </button>
     </>
-// 카테고리 버튼 확인용 더미데이터 종료
   )
 }
 

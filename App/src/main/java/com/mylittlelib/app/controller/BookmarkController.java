@@ -1,7 +1,6 @@
 package com.mylittlelib.app.controller;
 
 import com.mylittlelib.app.DTO.BookmarkDTO;
-import com.mylittlelib.app.DTO.CategoryDTO;
 import com.mylittlelib.app.DTO.ResponseDTO;
 import com.mylittlelib.app.model.Bookmark;
 import com.mylittlelib.app.model.Category;
@@ -29,6 +28,7 @@ public class BookmarkController {
         List<BookmarkDTO> dtos =bookmarks.stream().map(BookmarkDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok(dtos);
     }
+
     //like 생성자는 일단 보류
     @PostMapping("save")
     public ResponseEntity<?> saveBookmark(@RequestBody BookmarkDTO bookmarkDTO){

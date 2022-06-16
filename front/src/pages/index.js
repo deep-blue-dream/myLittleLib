@@ -1,52 +1,55 @@
 import Content from '../components/content';
+import { useState } from 'react';
+import { getSession, useSession } from 'next-auth/react';
+import { data } from 'autoprefixer';
 
+const HomePage = (props) => {  
+  const { data: session} = useSession();
+  console.log("주냐",[session?.user.email]);
+  const userCategories = props.categories;
+  // const userBookMarks = props.userInfo.userBookMarks;
+  const userBookMarks = props.userBookMarks;
 
-
-const HomePage = () => {
-  const categoriesDummyData = [
-    { id: 1, title: '자바 공부', description: '자바 공부 유튜브 영상들만 모음-생활코딩'},
-    { id: 2, category: 'MUSIC(카테고리 키워드)', title: '노래 목록', description: '힐링 음악 유튜브 영상들만 모음'},
-    { id: 3, category: 'GUITAR(카테고리 키워드)', title: '기타 강좌', description: '취미 공부용 기타 동영상'},
-    { id: 4, category: 'GUITAR(카테고리 키워드)', title: '기타 강좌', description: '취미 공부용 기타 동영상'},
-    { id: 5, category: 'GUITAR(카테고리 키워드)', title: '기타 강좌', description: '취미 공부용 기타 동영상'}
-  ];
-  const bookMarkDummyData = [
-    { id: 1, title: '자바 공부', description: '자바 공부 유튜브 영상들만 모음-생활코딩', bookMarkURL : "https://www.youtube.com/watch?v=_nXwrx4Qyz8" },
-    { id: 2, title: '노래 목록', description: '힐링 음악 유튜브 영상들만 모음', bookMarkURL : "https://www.youtube.com/watch?v=_nXwrx4Qyz8" },
-    { id: 3, title: '기타 강좌', description: '취미 공부용 기타 동영상', bookMarkURL : "https://www.youtube.com/watch?v=_nXwrx4Qyz8" },
-    { id: 4, title: '기타 강좌', description: '취미 공부용 기타 동영상', bookMarkURL : "https://www.youtube.com/watch?v=_nXwrx4Qyz8" },
-    { id: 5, title: '기타 강좌', description: '취미 공부용 기타 동영상', bookMarkURL : "https://www.youtube.com/watch?v=_nXwrx4Qyz8" }
-  ];
-  
+  if (session == null) {
   return (
-  // 현재 홈페이지에 메인에서만 반응형으로 변경되도록 함. 
-  // 현재 sideNavigation의 data.js의 아이콘 클릭에 따라서 링크관련된 data 전달되도록 조치해놓음.
+  <Content title="Home" category={[]}/>
+ 
+    )
+  }
+  console.log("나와라", props.categories);
+  return (
   <>
-  <Content title="Home" category={categoriesDummyData} bookMark={bookMarkDummyData}/>
+  <Content title="Home"category={userCategories}/>
+  
+  {/* bookMarkData = {userBookMarks} */}
   </>
-  );
+  )
 }
 
-// 1. 서버에서 받아온 category.json 데이터 props로 전달 작업
+
 
 export const getServerSideProps = async () => {
-
   try {
-    // const res = await fetch('http://localhost:8080/api/users/categories');
-    // const categories = await res.json();
-    // console.log(categories);
-    const categoriesTest = categoriesDummyData;
+    const res = await fetch('http://localhost:8080/totalinfo',{
+      method:'POST',
+      headers : {
+          'Content-Type':'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+    const categories = await res.json();
+    console.log(categories);
     
-
-    return { // 객체를 반환
-      props: {categoriesTest}
-      // props: { categories } // 그 객체는 props라는 이름의 프로퍼티를 가지고 있고
+    return { 
+      // props: {categoriesTest}
+      props: { categories } 
       // 그 프로퍼티의 값은 객체
     }
 
-  } catch (error) { //Exceptrion e 와 동일
+  } catch (error) { 
     console.log(error);
     return { props: {} }
+    }
   }
-};
+// 1. 서버에서 받아온 category.json 데이터 props로 전달 작업
 export default HomePage;

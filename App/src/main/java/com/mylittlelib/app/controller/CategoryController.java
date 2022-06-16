@@ -29,6 +29,13 @@ public class CategoryController {
         return ResponseEntity.ok(dtos);
 
     }
+    @PostMapping("totalinfo")
+    public ResponseEntity<?> totalInfo(@RequestBody CategoryDTO categoryDTO){
+        User user = userService.findbyEmail(categoryDTO.getEmail());
+        List<CategoryDTO> categories = categoryService.totalInfo(user);
+        return ResponseEntity.ok(categories);
+    }
+
     @PostMapping("save")
     public ResponseEntity<?> save(@RequestBody  CategoryDTO categoryDTO) {
         try {
