@@ -4,7 +4,7 @@ import { postCategoryAPI } from '../lib/api/category';
 
 
 
-const AddCategoryModal = ({ setModalOn}) => {
+const AddCategoryModal = (props) => {
         
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
@@ -22,20 +22,22 @@ const AddCategoryModal = ({ setModalOn}) => {
     // AddCategory 함수 작성
     const AddCategory = () =>{
         const data = {
-            userId: 1, //임의의 유저 번호 부여, BE 요청 방식과 naming 동일하게 진행
+            email: props.email, //임의의 유저 번호 부여, BE 요청 방식과 naming 동일하게 진행
             categoryTitle: title, //BE 요청 방식과 naming 동일하게 진행
             categoryDescription: description //BE 요청 방식과 naming 동일하게 진행
+            
         };
         postCategoryAPI(data);
+        router.replace("/");
     }
 
    
     const commitClickHandler = () => {
-        setModalOn(false)
+        props.setModalOn(false)
         AddCategory();
     }
     const cancelClickHandler = () => {
-        setModalOn(false)
+        props.setModalOn(false)
     }
     
     return (

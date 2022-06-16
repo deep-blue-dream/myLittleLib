@@ -10,12 +10,12 @@ const data = [
   {
     title: 'Home',
     icon: <HomeIcon />,
-    link: '/',
+    link: '/admin/status',
   },
   {
     title: 'Status',
     icon: <StatusIcon />,
-    link: '/admin/status',
+    link: '/',
   },
   {
     title: 'Archives',

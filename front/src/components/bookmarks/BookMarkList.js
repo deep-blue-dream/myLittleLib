@@ -5,7 +5,7 @@ import BookMark from './bookmark/BookMark'
 const BookMarkList = (props) => {
 
     const bookMarkList = props.bookMarkData.map(bookMark => (
-        <BookMark key={bookMark.id}
+        <BookMark key={bookMark.bookmarkIndex}
         id={bookMark.bookmarkIndex}
         title={bookMark.bookmarkTitle}
         description={bookMark.description}

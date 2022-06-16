@@ -8,8 +8,14 @@ const Category = (props) => {
     
     props.clickHandler(props.id);
   }
-
-  
+  const li = [[125, 171, 208],[207, 231, 234],[251, 193, 173],[245, 110, 74],[255, 239, 111]];
+  const randoms = () => {
+    return parseInt(Math.random(li.length+1));
+  }
+  let n = randoms();
+  let r = li[n][0];
+  let g = li[n][1];
+  let b = li[n][2];
     return (
     <>
     <button onClick={selectCategoryHandler} className="w-full md:w-4/12">
@@ -17,13 +23,13 @@ const Category = (props) => {
             {/* 박스1 설정 */}
             <div
               className="p-4 rounded-3xl"
-              style={{ backgroundColor: '#fee4cb' }}
+              style={{ backgroundColor: `rgba(${r},${g},${b})` }}
               >
               <div className="flex items-center justify-b">
                 <span className="text-sm">{props.id}</span>
               </div>
               <div className="text-center mb-4 mt-5">
-                <p className="text-base font-bold opacity-70">{props.title}</p>
+                <p className="text-base font-bold opacity-70 ">{props.title} </p>
                 <p className="text-sm opacity-70 mt-2">{props.description}</p>
               </div>
               <div>

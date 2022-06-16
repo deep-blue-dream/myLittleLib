@@ -24,13 +24,8 @@ const Content = (props) => {
   const categoryProps = props.properties;
   const bookMarkProps = [];
 
-  // props.properties.bookmarkDTOList.forEach(element => {
-  //   bookMarkProps.push(element);
-  // });
+  // console.log(bookMarkProps);
 
-  console.log(bookMarkProps);
-
-  // console.log(props.properties);
   let email;
 
   const router = useRouter();
@@ -58,17 +53,9 @@ const Content = (props) => {
         console.log("58번줄",element.bookmarkDTOList);
       }
     });
-    // setCurrBookMark(categoryProps[id-1].bookmarkDTOList);
   }
 
-  // const testAPI = async (data) => {
-  //     const res = await postSignInAPI(data);
-  //     const user = await res.json();
-      // console.log('여기', user);
-  //     return user;
-  // }
 
-  
  
   if (status === "authenticated") {email = session.user.email;};
   
@@ -79,9 +66,9 @@ const Content = (props) => {
   // const user = testAPI(data);
   // const res = user.then(result => result);
   // const res2 = res.then(result => result);
+    console.log(props.signin);
   
-  
-  if(session) { 
+  if(session !== null && props.signin === true) { 
 
   return( 
   // 컨텐츠 부분 헤더 디자인
@@ -94,8 +81,7 @@ const Content = (props) => {
       <div className="flex flex-wrap justify-between items-center pb-8">
         <div className="flex flex-wrap text-white">
           <div className="pr-10">
-            <div className="text-2xl font-bold">뮤직 플레이어</div>
-            <div className="">볼륨바</div>
+            <div className="text-2xl font-bold">안녕하세요, {session && session.user.name}님!</div>
           </div>
         </div>
       </div>
@@ -148,7 +134,7 @@ const Content = (props) => {
               </div>
             </div>
             {/* modal 부분 작성중 */}
-            {modalOn && < AddCatoryModal setModalOn={setModalOn} setChoice={setChoice} />}
+            {modalOn && < AddCatoryModal setModalOn={setModalOn}  email={email} />}
             {/* modal 부분 작성 완료 */}
           </div>
           {/* 박스 종료 */}
@@ -172,6 +158,7 @@ const Content = (props) => {
 
           
           <p className="text-base font-bold opacity-40 mt-4 text-white text-center">새 북마크 등록하기</p>
+          {/* {currCategory ? : } */}
           <div className="flex max-h-45">
             <div className="m-auto">
               <div className="flex justify-between mb-4 pt-2 relative">
@@ -197,12 +184,12 @@ const Content = (props) => {
               </div>
             </div>
             {/* modal 부분 작성중 */}
-            {bookModalOn && < AddBookMarkModal setBookModalOn={setBookModalOn} />}
+            {bookModalOn && < AddBookMarkModal setBookModalOn={setBookModalOn} currCategory={currCategory} categoryProps = {categoryProps} email = {email}/>}
             {/* modal 부분 작성 완료 */}
           </div>
           {/* 북마크 등록 버튼 종료 */}
           
-        </div>
+        </div>  
       </div>
     </div>
   </div>

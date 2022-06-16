@@ -6,13 +6,14 @@ import com.mylittlelib.app.model.Bookmark;
 import com.mylittlelib.app.model.Category;
 import com.mylittlelib.app.service.BookmarkService;
 import com.mylittlelib.app.service.CategoryService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Slf4j
 @RestController
 @RequestMapping("bookmark")
 @CrossOrigin("*")
@@ -30,9 +31,10 @@ public class BookmarkController {
     }
 
     //like 생성자는 일단 보류
-    @PostMapping("save")
+    @PostMapping("/save")
     public ResponseEntity<?> saveBookmark(@RequestBody BookmarkDTO bookmarkDTO){
         try {
+            log.info("bookmark 찍고싶은거 아무거나 입력해주세요");
             Category getCategory = categoryService.findByTitle(bookmarkDTO.getCategorytitle());
             Bookmark bookmark = Bookmark.builder()
                     .bookmarkTitle(bookmarkDTO.getBookmarkTitle())

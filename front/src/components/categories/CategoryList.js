@@ -17,6 +17,7 @@ const CategoryList = (props) => {
       props.clickHandler(id);
     }
 
+
     const categories = a.map(category => (
         <Category clickHandler={clickHandler} key={category.categoryIndex}
         id={category.categoryIndex}
@@ -29,7 +30,6 @@ const CategoryList = (props) => {
   return (
     <>
      <ul>
-        {/*버튼  onclick이벤트시 북마크 불러오는 과정 진행 카테고리 title값 ? 검색 조건에 따라서 */ }
        {categories}
     </ul>
     </>

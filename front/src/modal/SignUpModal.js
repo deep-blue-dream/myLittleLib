@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {GOOGLE_AUTH_URL} from '../lib/api/env';
 import { signIn, signOut } from 'next-auth/react';
 import { useSession } from "next-auth/react";
-import {postSignInAPI} from "../lib/api/user";
+import {postSignUpAPI} from "../lib/api/user";
 import { useRouter } from 'next/router';
 
 
@@ -19,15 +19,15 @@ const signupModal = ({ setSignUpModalOn }) => {
         setEmail(e.target.value);
     }
 
-    const signin = () => {
+
+    const signup = () => {
     const data = {
       email: email,
     };
-    postSignInAPI(data);
+    postSignUpAPI(data);
     console.log('성공');
+    setSignUpModalOn(false)
   };
-
-    
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -60,12 +60,12 @@ return (
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>  
           </button>
           <div className="py-6 px-6 lg:px-8">
-              <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">로그인</h3>
+              <h3 className="mb-4 text-xl font-medium text-gray-900 dark:text-white">로그인 및 회원가입</h3>
                 <form className="space-y-6" action="#" onSubmit={onSubmit}>
                     <div>
-                      <input type="email" name="email" id="email" onChange={emailChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="이메일" required="" />
+                      <input type="email" name="email" id="email" onChange={emailChangeHandler} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white" placeholder="구글로만 가입가능.." required="" />
                     </div>
-                    <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"onClick={signin}>로그인</button>
+                    <button type="submit" className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"onClick={signup}>회원가입</button>
                 </form>
                 <br>
                 </br>
@@ -75,7 +75,7 @@ return (
                         <img
                         src="https://aid-frontend.prod.atl-paas.net/atlassian-id/front-end/3.4.2/static/media/google-logo.c21ca9d1.svg"
                         className="mr-3 w-4"/>
-                        <span className="font-semibold text-sm" >구글로 회원가입</span>
+                        <span className="font-semibold text-sm" >구글로 로그인</span>
                     </button>
                 </div>
           </div>
