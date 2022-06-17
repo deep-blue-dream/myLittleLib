@@ -90,7 +90,6 @@ export default function Docs() {
         </ol>
       </section>
 
-
       <section className="px-3 md:px-8 my-16">
         <h2 className="text-2xl font-bold">02. 기술 스택</h2>
         <br/>
@@ -153,6 +152,7 @@ export default function Docs() {
         <div className=" flex justify-center pt-10">
           <img src="/images/archi.png" width={1050} height={1050} alt="MylittleLib_Arch" />
         </div>
+
 
       </section>
 
@@ -228,6 +228,7 @@ export default function Docs() {
           <img src="/images/UI.JPG" width={1050} height={1050} alt="UI 목업" />
         </div>
 </section>
+
 
 <section className="px-3 md:px-8 my-16">
 <h2 className="text-2xl font-bold">06. DATABASE</h2>

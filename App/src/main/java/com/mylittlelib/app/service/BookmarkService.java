@@ -19,10 +19,7 @@ public class BookmarkService {
         final String bookmarkTitle = bookmark.getBookmarkTitle();
         try{
             titleIsNull(bookmarkTitle);
-            if(bookmarkRepository.findBookmarkByBookmarkTitle(bookmarkTitle) != null){
-                log.warn("Bookmark already exists {}", bookmarkTitle);
-                throw new RuntimeException("Bookmark alreay exists");
-            }
+
         }catch (RuntimeException e){
             throw new RuntimeException(e.getMessage());
         }

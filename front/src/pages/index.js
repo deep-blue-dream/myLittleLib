@@ -9,10 +9,6 @@ const HomePage = () => {
   const { data: session, status} = useSession();
   const [properties, setProperties] = useState([]);
   const [signin, setSignin] = useState({});
-  
-  const userEmail ={
-    email : "deepbluedream8714@gmail.com"
-  }
 
   const Email = {
     email : session?.user.email
