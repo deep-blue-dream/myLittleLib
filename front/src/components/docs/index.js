@@ -150,7 +150,10 @@ export default function Docs() {
         <h2 className="text-2xl font-bold">03. 서비스 아키텍처</h2>
         <br/>
         <hr width="100%"/>
-        <img src ="" alt= "서비스 아키택처"/>
+        <div className=" flex justify-center pt-10">
+          <img src="/images/archi.png" width={1050} height={1050} alt="MylittleLib_Arch" />
+        </div>
+
       </section>
 
       <section className="px-2 md:px-8">
@@ -219,32 +222,36 @@ export default function Docs() {
       </section>
 
       <section className="px-3 md:px-8 my-16">
-        <h2 className="text-2xl font-bold">05. UI 목업</h2>
-        <br/>
-        <hr width="90%"/>
-          UI 설명.
-      </section>
+<h2 className="text-2xl font-bold">05. UI 목업</h2>
+<br/>
+<div className=" flex justify-center pt-10">
+          <img src="/images/UI.JPG" width={1050} height={1050} alt="UI 목업" />
+        </div>
+</section>
 
-      <section className="px-3 md:px-8 my-16">
-        <h2 className="text-2xl font-bold">06. DATABASE</h2>
-        <br/>
-        <hr width="90%"/>
-        <img src ="../../../../public/images/Erd.png" alt= "ERD 테이블"/>
-      </section>
-      <section className="px-3 md:px-8 my-16">
-        <h2 className="text-2xl font-bold">07. 기술 명세</h2>
-        <br/>
-        <hr width="90%"/>
-        <a href=''>  
-              <strong className='text-amber-200'>API DOCS</strong> : POST MAN API DOCS
-            </a>
-      </section>
+<section className="px-3 md:px-8 my-16">
+<h2 className="text-2xl font-bold">06. DATABASE</h2>
+<br/>
+<img src ="./front/public/images/Erd.png" alt= "ERD 테이블"/>
+</section>
+<section className="px-3 md:px-8 my-16">
+<h2 className="text-2xl font-bold">07. 기술 명세</h2>
+<br/>
+<a href='https://documenter.getpostman.com/view/21185841/UzBjt8jV
+'>  <br/>
+    <strong className='text-amber-200'>API DOCS</strong> : POST MAN API DOCS
+
+  </a>
+  <div className=" flex justify-center pt-10">
+          <img src="/images/기능명세.png" width={1050} height={1050} alt="기능 명세서" />
+        </div>
+</section>
 
       <section className="px-3 md:px-8 my-16">
         <h2 className="text-2xl font-bold">08. 시연 영상</h2>
         <br/>
         <hr width="90%"/>
-          움짤!
+          발표시 영상 참고
       </section>
 
       <section className="px-2 md:px-8">
@@ -256,15 +263,30 @@ export default function Docs() {
             <strong className='text-amber-200'>1) BE - Entity 순환참조</strong>
             <div className="text-amber-300 font-bold"><a href="https://thalals.tistory.com/303"><strong>- 참고 링크 ← 클릭</strong></a></div>
             <div>- Entity를 JSON으로 변환할때 생기는 이슈. 테이블 참조로 생긴 무한 재귀이다.</div>
-            <div>- DTO 패턴을 사용해서 바로 객체를 내보내지 않고 API로 보낼 객체를 따로 세팅했다.</div>
+            <div>- @JsonIgnore 어노테이션을 사용하거나 DTO 패턴을 사용하여 해결해야한다.</div>
+            
+            <div>- DTO 패턴을 통해 바로 객체를 내보내지 않고 API로 보낼 객체를 따로 세팅했다.</div>
           </li>
           <li className="mb-6">
-            <strong className='text-amber-200'>2) FE - Promise 객체의 result값 꺼내기</strong>
-            <div className="text-amber-300 font-bold"><a href="https://velog.io/@kyoung-jnn/useEffect-%EC%95%88%EC%97%90%EC%84%9C-%EB%B9%84%EB%8F%99%EA%B8%B0-%EC%B2%98%EB%A6%AC%ED%95%98%EA%B8%B0-async-await"><strong>- 참고 링크 ← 클릭</strong></a></div>
-            <div>- 내용</div>
-            <div>- asd</div>
-          </li>
-          
+  <strong className='text-amber-200'>FE - 백엔드 서버로 부터 데이터 받아오는 과정에서의 문제</strong>
+
+  <div>
+
+</div> - 1단계 : serverSideProps()등의 메서드를 통해 초기 렌더링 시userEmail과 매칭되는 데이터를 받아오려고 했으나, 인자 값을 넣어주는 단계가 필요하기 때문에 사용 어려움 확인.
+<div>
+- 2단계 : fetch 메서드의 .then을 통해 데이터를 받아오는 것 까지 확인. 이를 반환하면 Promise로 감싸져 객체 내에 있는 value접근하지 못함. setState()로 값을 변경하면 컴포넌트가 무한 렌더링하면서 루프에 빠지는 문제 발생.</div>
+<div>
+- 3단계 : useEffect() 메서드를 사용하여 데이터를 받아오고, setState()를 해주었더니 값이 한번 저장되고, 해결 됨.
+</div>
+</li>
+<li className="mb-6">
+  <strong className='text-amber-200'>FE - Google Login API를 이용한 로그인 세션 관련</strong>
+  <div>
+- API를 이용해 로그인을 하고, 이 Email주소가 DB의 Email과 일치하는지 확인하는 과정을 구현. Google 로그인 후 Session이 생성되는 시기 불확실로, 일치여부 확인단계보다 늦게 생성되어, session이 null로, email을 담지 못하는 문제 발생. </div>
+<div>- 대체방안으로 로그인이 실행되고 메인 홈페이지로 가기 전에 다른 페이지에서 거쳐가도록 재구현. </div>
+<div>- 추후에 보완하여 메인으로 바로 접속해도 Session이 생성되도록 구현하는 것이 목표. </div> 
+
+</li>
         </ol>
       </section>
 
