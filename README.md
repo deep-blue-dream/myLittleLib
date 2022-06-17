@@ -299,7 +299,7 @@
 </li>
 <li className="mb-6">
   <a href='https://github.com/solhee-hwang'>
-    <strong className='text-amber-200'>황솔희</strong>  </a>: 마지막까지 promise는 날 괴롭힌다😭 백엔드보다 프론트가 훨씬 어렵다고 느꼈던 프로젝트였습니다,, 백엔드에서 예외처리를 좀 더 세밀하게 할 필요성을 느끼게 해준 프로젝트였습니다.
+    <strong className='text-amber-200'>황솔희</strong>  </a>: 마지막까지 promise는 날 괴롭힌다😭 백엔드보다 프론트가 훨씬 어렵다고 느꼈던 프로젝트였습니다,, 그리구 다음에는 예외처리를 좀 더 세밀하게 하는걸루,, 그래도 이 프로젝트를 통해 실력도 많이 늘었던거같습니다! 
 
 </li>
 <li className="mb-6">
