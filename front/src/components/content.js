@@ -5,6 +5,7 @@ import CategoryList from "./categories/CategoryList";
 import BookMarkList from "./bookmarks/BookMarkList";
 import AddBookMarkModal from "../modal/AddBookMarkModal";
 import { useSession } from "next-auth/react"
+import VideoModal from "../modal/videoModal";
 
 import { Router, useRouter } from "next/router";
 import Docs from './docs/index';
@@ -22,9 +23,7 @@ let todayDate = now.getDate() > 9? now.getDate() : '0' + now.getDate();
 
 const Content = (props) => {
   const categoryProps = props.properties;
-  const bookMarkProps = [];
 
-  // console.log(bookMarkProps);
 
   let email;
 
@@ -50,7 +49,6 @@ const Content = (props) => {
     categoryProps.forEach(element => {
       if (element.categoryIndex == id){
         setCurrBookMark(element.bookmarkDTOList);
-        console.log("58번줄",element.bookmarkDTOList);
       }
     });
   }
@@ -62,11 +60,6 @@ const Content = (props) => {
   const data = {
       email : email
     };
-
-  // const user = testAPI(data);
-  // const res = user.then(result => result);
-  // const res2 = res.then(result => result);
-    console.log(props.signin);
   
   if(session !== null && props.signin === true) { 
 
@@ -87,11 +80,11 @@ const Content = (props) => {
       </div>
       {/* 헤더 디자인 종료 */}
 
-
+      <CategoryList categoryProps={categoryProps} clickHandler = {clickHandler}/> 
       <div className="flex flex-wrap">
       {/* 박스 flex 적용 tailwind */}
       {/* 유저가 가지고 있는 카테고리 컨텐츠 등록 박스 시작 */}
-      <CategoryList categoryProps={categoryProps} clickHandler = {clickHandler}/> 
+      
       {/* /categorydata = {category} */}
       {/* 유저가 가지고 있는 카테고리 컨텐츠 등록 박스 종료 */}
 
@@ -101,7 +94,7 @@ const Content = (props) => {
             <div className="p-4 rounded-3xl bg-red-200">
               <div className="flex items-center justify-b">
                 </div>
-                  <div className="text-center mb-4 mt-5">
+                <div className="text-center mb-4 mt-5">
                   <p className="text-base font-bold opacity-80">새 카테고리 등록하기</p>
                 </div>
                   {/* 버튼 중앙 정렬 div wrap 기능 line 100~101,122~123 - */}
@@ -123,6 +116,7 @@ const Content = (props) => {
                             strokeLinejoin="round"
                             className="feather feather-plus">
                             <path d="M12 5v14M5 12h14" />
+                           
                           </svg>
                         </button>
                       </div>

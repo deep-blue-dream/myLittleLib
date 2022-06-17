@@ -108,6 +108,7 @@ public class CategoryService {
                         .builder()
                         .bookmarkIndex(bookmark.getBookmarkIndex())
                         .bookmarkTitle(bookmark.getBookmarkTitle())
+                        .description(bookmark.getDescription())
                         .bookmarkUrl(bookmark.getBookmarkurl())
                         .build();
                 bookmarkDTOList.add(bookmarkDTO);
