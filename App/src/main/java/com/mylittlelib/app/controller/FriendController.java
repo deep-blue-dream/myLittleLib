@@ -62,15 +62,20 @@ public class FriendController {
         }
     }
 
-//    // 친삭
-//    @DeleteMapping
-//    public ResponseEntity<?> delete(@RequestParam("userId") String userId,@RequestParam("friendId") String friendId){
-//        try {
-//            boolean flag = friendService.delete(userId,friendId);
-//            return ResponseEntity.ok().body(flag);
-//        } catch (Exception e){
-//            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
-//            return ResponseEntity.badRequest().body(responseDTO);
-//        }
-//    }
+
+
+    // 친삭
+    @DeleteMapping()
+    public ResponseEntity<?> delete(@RequestBody FriendDTO friendDTO){
+        try {
+            User getUser = userService.findbyEmail(friendDTO.getUserEmail());
+            Long getFriendIndex = userService.findbyFriendEmail(friendDTO.getFriendEmail());
+            List<Friend> friends = friendService.deletefriend(getUser, getFriendIndex);
+            List<FriendDTO> dtos = friends.stream().map(FriendDTO::new).collect(Collectors.toList());
+            return ResponseEntity.ok(dtos);
+        } catch (Exception e) {
+            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+            return ResponseEntity.badRequest().body(responseDTO);
+        }
+    }
 }

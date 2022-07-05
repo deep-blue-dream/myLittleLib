@@ -23,4 +23,9 @@ public class Friend {
 
     @Column(name = "friend_user_index")
     private Long friendUserIndex;
+
+    @Override
+    public String toString() {
+        return  "{ friendIndex='" + friendUserIndex + '\'' + '}' ;
+    }
 }

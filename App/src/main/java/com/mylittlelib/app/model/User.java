@@ -35,5 +35,8 @@ public class User {
     public String categoryTitletoString() {
         return "categoryList=" + categoryList.toString() ;
     }
+    public String friendstoString(){
+        return "friendList=" + friendList.toString();
+    }
 
 }

@@ -37,6 +37,15 @@ public class FriendService {
         return friendRepository.save(friend);
     }
 
+    public List<Friend> deletefriend(User user , Long friendindex) {
+        if(friendRepository.findFriendByUserAndAndFriendUserIndex(user, friendindex) == null){
+            log.error("둘은 친구가 아닌걸");
+            throw new RuntimeException("no such friend");
+        }
+        Friend friend = friendRepository.findFriendByUserAndAndFriendUserIndex(user, friendindex);
+        friendRepository.delete(friend);
+        return friendRepository.findFriendsByUser(user);
+    }
 
 
 //
