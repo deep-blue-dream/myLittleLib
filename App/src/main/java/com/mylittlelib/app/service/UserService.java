@@ -60,7 +60,7 @@ public class UserService {
     }
     public Long findbyFriendEmail(String email){
         if(userRepository.findUserByEmail(email) == null){
-            throw new RuntimeException("invalid email");
+            throw new RuntimeException("Invalid FriendEmail");
         }
         return userRepository.findUserByEmail(email).getUserIndex();
     }

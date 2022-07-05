@@ -7,6 +7,8 @@ import com.mylittlelib.app.model.Friend;
 import com.mylittlelib.app.model.User;
 import com.mylittlelib.app.service.FriendService;
 import com.mylittlelib.app.service.UserService;
+import lombok.extern.java.Log;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RestController
 @RequestMapping("friend")
 @CrossOrigin("*")
@@ -26,9 +29,11 @@ public class FriendController {
     @Autowired
     private UserService userService;
 
-    @GetMapping()
-    public ResponseEntity<?> findAll(){
-        List<Friend> friendList = friendService.findAll();
+    @PostMapping()
+    public ResponseEntity<?> findAll(@RequestBody FriendDTO friendDTO){
+        User getUser = userService.findbyEmail(friendDTO.getUserEmail());
+        List<Friend> friendList = friendService.findAll(getUser);
+        log.info("{}",getUser.getUserIndex());
         List<FriendDTO> dtos = friendList.stream().map(FriendDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok(dtos);
     }
@@ -42,7 +47,7 @@ public class FriendController {
                     .user(getUser)
                     .friendUserIndex(getFriendIndex)
                     .build();
-            Friend registerFriend = friendService.save(friend);
+            Friend registerFriend = friendService.save(getUser,friend);
             FriendDTO responseFriendDTO = FriendDTO.builder()
                     .friendIndex(registerFriend.getFriendIndex())
                     .userIndex(registerFriend.getUser().getUserIndex())

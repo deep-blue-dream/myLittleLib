@@ -20,13 +20,23 @@ public class FriendService {
     @Autowired
     private UserService userService;
 
-    public List<Friend> findAll() {
-        return friendRepository.findAll();
+    public List<Friend> findAll(User user) {
+
+        return friendRepository.findFriendsByUser(user);
     }
 
-    public Friend save(Friend friend) {
+    public Friend save(User user, Friend friend) {
+        if(friendRepository.findFriendByUserAndAndFriendUserIndex(user, friend.getFriendUserIndex()) != null){
+            log.error("이미 친구추가한 사람 index : {}",friend.getFriendUserIndex() );
+            throw new RuntimeException("Friend already exists");
+        }
+        if(user.getUserIndex() == friend.getFriendUserIndex()){
+            log.error("{} == {}" ,user.getUserIndex(), friend.getFriendUserIndex());
+            throw new RuntimeException("you enter your email in friendemail");
+        }
         return friendRepository.save(friend);
     }
+
 
 
 //
@@ -87,4 +97,7 @@ public class FriendService {
 //
 //
 //    }
+//
+
+
 }
