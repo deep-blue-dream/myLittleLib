@@ -6,6 +6,7 @@ import com.mylittlelib.app.model.Category;
 import com.mylittlelib.app.model.User;
 import com.mylittlelib.app.service.CategoryService;
 import com.mylittlelib.app.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("category")
 @CrossOrigin("*")
+@Slf4j
 public class CategoryController {
     @Autowired
     CategoryService categoryService;
@@ -59,13 +61,14 @@ public class CategoryController {
             return  ResponseEntity.badRequest().body(responseDTO);
         }
     }
-    @GetMapping("/search")
+    @PostMapping ("/search")
     public ResponseEntity<?> findByTitle(@RequestBody CategoryDTO categoryDTO){
         try{
             Category category = categoryService.findByTitle(categoryDTO.getCategoryTitle());
+            log.info("찾아져라");
             CategoryDTO responseCategoryDTO = CategoryDTO.builder()
                     .categoryIndex(category.getCategoryIndex())
-                    .categoryDescription(categoryDTO.getCategoryDescription())
+                    .categoryDescription(category.getCategoryDescription())
                     .categoryTitle(category.getCategoryTitle())
                     .email(category.getUser().getEmail())
                     .build();

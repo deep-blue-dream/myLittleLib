@@ -8,6 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @Slf4j
 public class FriendService {
@@ -17,6 +19,14 @@ public class FriendService {
 
     @Autowired
     private UserService userService;
+
+    public List<Friend> findAll() {
+        return friendRepository.findAll();
+    }
+
+    public Friend save(Friend friend) {
+        return friendRepository.save(friend);
+    }
 
 
 //

@@ -53,11 +53,15 @@ public class UserService {
     }
 
     public User findbyEmail(String email) {
-        log.error(email);
         if(userRepository.findUserByEmail(email) == null){
-            log.error("에러 내용이 뭐니");
             throw new RuntimeException("invalid email");
         }
         return userRepository.findUserByEmail(email);
+    }
+    public Long findbyFriendEmail(String email){
+        if(userRepository.findUserByEmail(email) == null){
+            throw new RuntimeException("invalid email");
+        }
+        return userRepository.findUserByEmail(email).getUserIndex();
     }
 }

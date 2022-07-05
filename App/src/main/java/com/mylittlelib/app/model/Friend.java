@@ -20,6 +20,7 @@ public class Friend {
     @JoinColumn(name = "user_index")
     private User user;
 
+
     @Column(name = "friend_user_index")
     private Long friendUserIndex;
 }

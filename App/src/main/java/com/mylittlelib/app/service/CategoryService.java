@@ -39,7 +39,6 @@ public class CategoryService {
     public Category findByTitle(String title) {
 
         try {
-            titleIsNull(title);
             category = categoryRepository.findCategoryByCategoryTitle(title);
         } catch (NullPointerException e) {
             throw new RuntimeException("Not found title");
