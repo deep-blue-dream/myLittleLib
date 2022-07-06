@@ -36,6 +36,9 @@ public class Category {
     @Column(name = "authority")
     private int authority = 0 ;
 
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL)
+    private AuthorityGroup authorityGroup;
+
     @Override
     public String toString() {
         return "{ categoryTitle='" + categoryTitle + '\'' + '}';
