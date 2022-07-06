@@ -11,6 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CategoryDTO {
     private Long categoryIndex;
+    private int authority;
     private String categoryTitle;
     private String categoryDescription;
     private String email;

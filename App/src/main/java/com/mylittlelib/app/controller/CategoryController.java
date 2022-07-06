@@ -24,6 +24,7 @@ public class CategoryController {
     @Autowired
     UserService userService;
 
+
     @GetMapping
     public ResponseEntity<?> findall(){
         List<Category> categories = categoryService.findAll();
@@ -37,19 +38,25 @@ public class CategoryController {
         List<CategoryDTO> categories = categoryService.totalInfo(user);
         return ResponseEntity.ok(categories);
     }
-
+    @GetMapping("totalinfo")
+    public ResponseEntity<?> openTotalInfo(){
+        List<CategoryDTO> categories = categoryService.totalInfo();
+        return ResponseEntity.ok(categories);
+    }
     @PostMapping("save")
     public ResponseEntity<?> save(@RequestBody  CategoryDTO categoryDTO) {
         try {
 
             User getUser = userService.findbyEmail(categoryDTO.getEmail());
             Category category = Category.builder()
+                    .authority(categoryDTO.getAuthority())
                     .categoryTitle(categoryDTO.getCategoryTitle())
                     .categoryDescription(categoryDTO.getCategoryDescription())
                     .user(getUser)
                     .build();
-            Category registerCategory = categoryService.save(category);
+            Category registerCategory = categoryService.save(category, getUser);
             CategoryDTO responseCategoryDTO = CategoryDTO.builder()
+                    .authority(registerCategory.getAuthority())
                     .categoryIndex(registerCategory.getCategoryIndex())
                     .categoryDescription(registerCategory.getCategoryDescription())
                     .email(registerCategory.getUser().getEmail())
@@ -82,7 +89,8 @@ public class CategoryController {
     @PutMapping("/update")
     public ResponseEntity<?> updateCatgory(@RequestBody CategoryDTO categoryDTO){
         try {
-            Category category = categoryService.updateCategory(categoryDTO);
+            User getUser = userService.findbyEmail(categoryDTO.getEmail());
+            Category category = categoryService.updateCategory(categoryDTO, getUser);
             CategoryDTO responseCategoryDTO = CategoryDTO.builder()
                     .categoryIndex(category.getCategoryIndex())
                     .categoryTitle(category.getCategoryTitle())

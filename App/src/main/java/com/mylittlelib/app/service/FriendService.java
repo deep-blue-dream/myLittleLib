@@ -1,6 +1,5 @@
 package com.mylittlelib.app.service;
 
-import com.mylittlelib.app.DTO.FriendDTO;
 import com.mylittlelib.app.model.Friend;
 import com.mylittlelib.app.model.User;
 import com.mylittlelib.app.repository.FriendRepository;
@@ -17,8 +16,6 @@ public class FriendService {
     @Autowired
     private FriendRepository friendRepository;
 
-    @Autowired
-    private UserService userService;
 
     public List<Friend> findAll(User user) {
 

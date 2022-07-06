@@ -32,9 +32,9 @@ public class Category {
     @Builder.Default
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "category")
     private Set<Bookmark> bookmarkList = new HashSet<>();
-
-    @OneToOne(mappedBy = "category")
-    private Authority authority;
+    //비공개가 디폴트
+    @Column(name = "authority")
+    private int authority = 0 ;
 
     @Override
     public String toString() {

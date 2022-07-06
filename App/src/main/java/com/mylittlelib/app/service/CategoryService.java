@@ -21,12 +21,12 @@ public class CategoryService {
     private CategoryRepository categoryRepository;
     private Category category;
 
-    public Category save(Category category) {
+    public Category save(Category category, User user) {
         final String categoryTitle = category.getCategoryTitle();
 
         try{
             titleIsNull(categoryTitle);
-            if(categoryRepository.findCategoryByCategoryTitle(categoryTitle) != null){
+            if(categoryRepository.findCategoryByCategoryTitleAndUser(categoryTitle, user) != null){
                 log.warn("Category Title already exists {}", categoryTitle);
                 throw new RuntimeException("Category Title already exists");
             }
@@ -45,12 +45,14 @@ public class CategoryService {
         }
         return category;
     }
-    public Category updateCategory(CategoryDTO categoryDTO) {
+    public Category updateCategory(CategoryDTO categoryDTO, User user) {
 
         String title = categoryDTO.getCategoryTitle();
+
         try{
             titleIsNull(title);
-            category = categoryRepository.findCategoryByCategoryTitle(title);
+            category = categoryRepository.findCategoryByCategoryTitleAndUser(title,user);
+            category.setAuthority(categoryDTO.getAuthority());
             category.setCategoryTitle(categoryDTO.getNewCategoryTitle());
             category.setCategoryDescription(categoryDTO.getNewDescription());
         }catch (NullPointerException e) {
@@ -97,6 +99,7 @@ public class CategoryService {
 
             CategoryDTO categoryDTO = CategoryDTO
                     .builder().categoryDescription(category.getCategoryDescription())
+                    .authority(category.getAuthority())
                     .categoryIndex(category.getCategoryIndex())
                     .categoryTitle(category.getCategoryTitle())
                     .bookmarkDTOList(new ArrayList<>())
@@ -116,4 +119,33 @@ public class CategoryService {
         }
         return categoryDTOList;
     }
+    public List<CategoryDTO> totalInfo() {
+        List<Category> categories = categoryRepository.findByAuthority(1);
+        List<CategoryDTO> categoryDTOList = new ArrayList<>();
+        for (Category category:categories) {
+
+            CategoryDTO categoryDTO = CategoryDTO
+                    .builder().categoryDescription(category.getCategoryDescription())
+                    .authority(category.getAuthority())
+                    .categoryIndex(category.getCategoryIndex())
+                    .categoryTitle(category.getCategoryTitle())
+                    .bookmarkDTOList(new ArrayList<>())
+                    .build();
+            List<BookmarkDTO> bookmarkDTOList = categoryDTO.getBookmarkDTOList();
+            for (Bookmark bookmark: category.getBookmarkList()) {
+                BookmarkDTO bookmarkDTO = BookmarkDTO
+                        .builder()
+                        .bookmarkIndex(bookmark.getBookmarkIndex())
+                        .bookmarkTitle(bookmark.getBookmarkTitle())
+                        .bookmarkUrl(bookmark.getBookmarkurl())
+                        .build();
+                bookmarkDTOList.add(bookmarkDTO);
+                System.out.println(category.getCategoryTitle()+"ㄷㄷ "+bookmark.getBookmarkTitle());
+            }
+            categoryDTOList.add(categoryDTO);
+        }
+        return categoryDTOList;
+    }
+
+
 }
