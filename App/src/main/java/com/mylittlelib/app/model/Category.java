@@ -33,6 +33,9 @@ public class Category {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "category")
     private Set<Bookmark> bookmarkList = new HashSet<>();
 
+    @OneToOne(mappedBy = "category")
+    private Authority authority;
+
     @Override
     public String toString() {
         return "{ categoryTitle='" + categoryTitle + '\'' + '}';
