@@ -1,7 +1,6 @@
 package com.mylittlelib.app.model;
 
 import lombok.*;
-import org.hibernate.mapping.ToOne;
 
 import javax.persistence.*;
 

@@ -45,6 +45,14 @@ public class CategoryService {
         }
         return category;
     }
+    public Category findByIndex(Long index){
+        try {
+            category = categoryRepository.findCategoryByCategoryIndex(index);
+        } catch (NullPointerException e) {
+            throw new RuntimeException("Not found index");
+        }
+        return category;
+    }
     public Category updateCategory(CategoryDTO categoryDTO, User user) {
 
         String title = categoryDTO.getCategoryTitle();

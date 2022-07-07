@@ -19,7 +19,7 @@ public class AuthorityGroup {
     private Long groupIndex;
 
     @Column(name = "group_level")
-    private Long groupLevel;
+    private int groupLevel;
 
     @OneToOne
     @JoinColumn(name = "category_index")
