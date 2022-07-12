@@ -25,7 +25,6 @@ const signupModal = ({ setSignUpModalOn }) => {
       email: email,
     };
     postSignUpAPI(data);
-    console.log('성공');
     setSignUpModalOn(false)
   };
 

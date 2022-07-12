@@ -1,14 +1,9 @@
 import React, {useState} from 'react';
+import videoModal from '../../../modal/videoModal';
 
 const BookMark = (props) => {
-
   const [isBookRendered, setIsBookRenderd] = useState(false);
   
-
-  const selectBookMarkHandler = (props) => {
-        window.open(`${props.bookMarkURL}`)
-    }
-
     return (
     <>
     {/* 버튼 형식으로 바꾸기 위해 button 추가함 */}
@@ -16,10 +11,11 @@ const BookMark = (props) => {
             {/* <div className="w-full md:w-4/12"> */}
             {/* 북마크1 설정 */}
             <div>
+            {/* <button> */}
             <div className="border-t solid border-gray-700 p-4 flex 2xl:items-start w-full hover:bg-gray-700">
                 <div className="pl-4 w-full">
                 <div className="flex items-center justify-between w-full">
-                    <div className="text-white font-medium">{props.title}</div>
+                    <div className="text-white font-medium text-border text-blue-500 truncate">{props.title}</div>
                     <div className="flex justify-center items-center cursor-pointer h-7 w-7">
                         <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -37,15 +33,15 @@ const BookMark = (props) => {
                         </svg>
                     </div>
                 </div>
-                <p className="my-2 text-sm text-gray-400">
-                    {props.description}
-                </p>
+                    <p className="my-2 text-sm text-gray-400 truncate">{props.description}</p>
                 </div>
             </div>
+            {/* </button> */}
             </div>
         </button>
     </>
   )
 }
+
 
 export default BookMark
