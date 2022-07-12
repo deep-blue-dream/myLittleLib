@@ -15,8 +15,6 @@ public class CategoryDTO {
     private String categoryTitle;
     private String categoryDescription;
     private String email;
-    private String newCategoryTitle;
-    private String newDescription;
     private List<BookmarkDTO> bookmarkDTOList;
     public CategoryDTO(Category category) {
         this.categoryIndex = category.getCategoryIndex();

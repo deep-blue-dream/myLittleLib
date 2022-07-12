@@ -34,14 +34,36 @@ public class CategoryController {
     }
     @PostMapping("totalinfo")
     public ResponseEntity<?> totalInfo(@RequestBody CategoryDTO categoryDTO){
-        User user = userService.findbyEmail(categoryDTO.getEmail());
-        List<CategoryDTO> categories = categoryService.totalInfo(user);
-        return ResponseEntity.ok(categories);
+        try {
+            User user = userService.findbyEmail(categoryDTO.getEmail());
+            List<CategoryDTO> categories = categoryService.totalInfo(user);
+            return ResponseEntity.ok(categories);
+        } catch (Exception e) {
+            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+            return  ResponseEntity.badRequest().body(responseDTO);
+        }
     }
+    // 공개인 카테고리만 띄우기
     @GetMapping("totalinfo")
     public ResponseEntity<?> openTotalInfo(){
-        List<CategoryDTO> categories = categoryService.totalInfo();
-        return ResponseEntity.ok(categories);
+        try {
+            List<CategoryDTO> categories = categoryService.totalInfo();
+            return ResponseEntity.ok(categories);
+        } catch (Exception e) {
+            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+            return  ResponseEntity.badRequest().body(responseDTO);
+        }
+    }
+    @PostMapping("infobyuser")
+    public ResponseEntity<?> infobyuser(@RequestBody CategoryDTO categoryDTO){
+        try {
+            User user = userService.findbyEmail(categoryDTO.getEmail());
+            List<CategoryDTO> categories = categoryService.infobyuser(user);
+            return ResponseEntity.ok(categories);
+        } catch (Exception e) {
+            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+            return  ResponseEntity.badRequest().body(responseDTO);
+        }
     }
     @PostMapping("save")
     public ResponseEntity<?> save(@RequestBody  CategoryDTO categoryDTO) {
@@ -89,13 +111,13 @@ public class CategoryController {
     @PutMapping("/update")
     public ResponseEntity<?> updateCatgory(@RequestBody CategoryDTO categoryDTO){
         try {
-            User getUser = userService.findbyEmail(categoryDTO.getEmail());
-            Category category = categoryService.updateCategory(categoryDTO, getUser);
+            Category category = categoryService.updateCategory(categoryDTO);
             CategoryDTO responseCategoryDTO = CategoryDTO.builder()
                     .categoryIndex(category.getCategoryIndex())
                     .categoryTitle(category.getCategoryTitle())
-                    .categoryDescription(categoryDTO.getCategoryDescription())
+                    .categoryDescription(category.getCategoryDescription())
                     .email(category.getUser().getEmail())
+                    .authority(category.getAuthority())
                     .build();
             return ResponseEntity.ok(responseCategoryDTO);
         } catch (Exception e) {
