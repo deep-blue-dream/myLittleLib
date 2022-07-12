@@ -1,17 +1,14 @@
 package com.mylittlelib.app.controller;
 
-import com.mylittlelib.app.DTO.CategoryDTO;
 import com.mylittlelib.app.DTO.FriendDTO;
 import com.mylittlelib.app.DTO.ResponseDTO;
 import com.mylittlelib.app.model.Friend;
 import com.mylittlelib.app.model.User;
 import com.mylittlelib.app.service.FriendService;
 import com.mylittlelib.app.service.UserService;
-import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

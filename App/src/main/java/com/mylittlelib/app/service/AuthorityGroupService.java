@@ -16,6 +16,10 @@ public class AuthorityGroupService {
     private AuthorityGroupRepository authorityGroupRepository;
 
     public AuthorityGroup save(AuthorityGroup authorityGroup, Category category) {
+        if(category.getAuthority() == 0){
+            log.warn("비공개 상태입니다 공개로 바꾸고 그룹권한을 설정하시오");
+            throw new RuntimeException("category authority is 0");
+        }
         if(authorityGroupRepository.findAuthorityGroupByCategory(category) != null){
             log.error("이미 이 카테고리의 그룹 권한은 저장되어있다");
             throw new RuntimeException("Authority already exists");
@@ -23,6 +27,10 @@ public class AuthorityGroupService {
         return authorityGroupRepository.save(authorityGroup);
     }
     public AuthorityGroup update(AuthorityGroupDTO authorityGroupDTO,Category category) {
+        if(category.getAuthority() == 0){
+            log.warn("비공개 상태입니다 공개로 바꾸고 그룹권한을 설정하시오");
+            throw new RuntimeException("category authority is 0");
+        }
         if(authorityGroupRepository.findAuthorityGroupByCategory(category) == null){
             log.error("{}번째 카테고리는 그룹 권한 설정이 아직 안되있음 ");
             throw new RuntimeException("Invalid authority");
@@ -31,4 +39,5 @@ public class AuthorityGroupService {
         authorityGroup.setGroupLevel(authorityGroupDTO.getGroupLevel());
         return authorityGroup;
     }
+
 }

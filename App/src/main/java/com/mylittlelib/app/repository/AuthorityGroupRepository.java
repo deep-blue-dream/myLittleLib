@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AuthorityGroupRepository extends JpaRepository<AuthorityGroup, Long> {
     AuthorityGroup findAuthorityGroupByCategory(Category category);
+
+    AuthorityGroup findAuthorityGroupByGroupIndex(Long index);
 }
