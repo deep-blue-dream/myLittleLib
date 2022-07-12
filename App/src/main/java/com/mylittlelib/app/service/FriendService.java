@@ -1,12 +1,13 @@
 package com.mylittlelib.app.service;
 
-import com.mylittlelib.app.DTO.FriendDTO;
 import com.mylittlelib.app.model.Friend;
 import com.mylittlelib.app.model.User;
 import com.mylittlelib.app.repository.FriendRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Slf4j
@@ -15,8 +16,33 @@ public class FriendService {
     @Autowired
     private FriendRepository friendRepository;
 
-    @Autowired
-    private UserService userService;
+
+    public List<Friend> findAll(User user) {
+
+        return friendRepository.findFriendsByUser(user);
+    }
+
+    public Friend save(User user, Friend friend) {
+        if(friendRepository.findFriendByUserAndAndFriendUserIndex(user, friend.getFriendUserIndex()) != null){
+            log.error("이미 친구추가한 사람 index : {}",friend.getFriendUserIndex() );
+            throw new RuntimeException("Friend already exists");
+        }
+        if(user.getUserIndex() == friend.getFriendUserIndex()){
+            log.error("{} == {}" ,user.getUserIndex(), friend.getFriendUserIndex());
+            throw new RuntimeException("you enter your email in friendemail");
+        }
+        return friendRepository.save(friend);
+    }
+
+    public List<Friend> deletefriend(User user , Long friendindex) {
+        if(friendRepository.findFriendByUserAndAndFriendUserIndex(user, friendindex) == null){
+            log.error("둘은 친구가 아닌걸");
+            throw new RuntimeException("no such friend");
+        }
+        Friend friend = friendRepository.findFriendByUserAndAndFriendUserIndex(user, friendindex);
+        friendRepository.delete(friend);
+        return friendRepository.findFriendsByUser(user);
+    }
 
 
 //
@@ -77,4 +103,7 @@ public class FriendService {
 //
 //
 //    }
+//
+
+
 }

@@ -20,6 +20,6 @@ public class UserDTO {
     private boolean isSignedIn = false;
 
     private String categoryList;
-    private Set<Friend> friendList;
+    private String friendsList;
 
 }

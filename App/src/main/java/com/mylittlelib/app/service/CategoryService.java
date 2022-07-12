@@ -21,12 +21,13 @@ public class CategoryService {
     private CategoryRepository categoryRepository;
     private Category category;
 
-    public Category save(Category category) {
+
+    public Category save(Category category, User user) {
         final String categoryTitle = category.getCategoryTitle();
 
         try{
             titleIsNull(categoryTitle);
-            if(categoryRepository.findCategoryByCategoryTitle(categoryTitle) != null){
+            if(categoryRepository.findCategoryByCategoryTitleAndUser(categoryTitle, user) != null){
                 log.warn("Category Title already exists {}", categoryTitle);
                 throw new RuntimeException("Category Title already exists");
             }
@@ -39,23 +40,31 @@ public class CategoryService {
     public Category findByTitle(String title) {
 
         try {
-            titleIsNull(title);
             category = categoryRepository.findCategoryByCategoryTitle(title);
         } catch (NullPointerException e) {
             throw new RuntimeException("Not found title");
         }
         return category;
     }
+    public Category findByIndex(Long index){
+        try {
+            category = categoryRepository.findCategoryByCategoryIndex(index);
+        } catch (NullPointerException e) {
+            throw new RuntimeException("Not found index");
+        }
+        return category;
+    }
     public Category updateCategory(CategoryDTO categoryDTO) {
 
-        String title = categoryDTO.getCategoryTitle();
+
         try{
-            titleIsNull(title);
-            category = categoryRepository.findCategoryByCategoryTitle(title);
-            category.setCategoryTitle(categoryDTO.getNewCategoryTitle());
-            category.setCategoryDescription(categoryDTO.getNewDescription());
+            category = categoryRepository.findCategoryByCategoryIndex(categoryDTO.getCategoryIndex());
+            category.setAuthority(categoryDTO.getAuthority());
+            category.setCategoryTitle(categoryDTO.getCategoryTitle());
+            category.setCategoryDescription(categoryDTO.getCategoryDescription());
         }catch (NullPointerException e) {
-            throw new RuntimeException("Not found title");
+
+            throw new RuntimeException(e.getMessage());
         }catch (RuntimeException e){
             throw new RuntimeException(e.getMessage());
         }
@@ -90,14 +99,32 @@ public class CategoryService {
     public List<Category> findAll() {
         return categoryRepository.findAll();
     }
-
+    //나의 카테고리 조회
     public List<CategoryDTO> totalInfo(User user) {
         List<Category> categoryList = categoryRepository.findByUser(user);
+        List<CategoryDTO> categoryDTOList = setcategorylist(categoryList);
+        return categoryDTOList;
+    }
+    //다른 사람의 카테고리까지 조회 -> 본인 카테고리 제외하고 조회해야함 일단 내꺼 포함 조회
+    public List<CategoryDTO> totalInfo() {
+        List<Category> categories = categoryRepository.findByAuthority(1);
+        List<CategoryDTO> categoryDTOList = setcategorylist(categories);
+        return categoryDTOList;
+    }
+
+    //검색하는 유저의 공개 카테고리 조회
+    public List<CategoryDTO> infobyuser(User user) {
+        List<Category> categories = categoryRepository.findByAuthorityAndUser(1, user);
+        List<CategoryDTO> categoryDTOList = setcategorylist(categories);
+        return categoryDTOList;
+    }
+    private List<CategoryDTO> setcategorylist(List<Category> categories){
         List<CategoryDTO> categoryDTOList = new ArrayList<>();
-        for (Category category:categoryList) {
+        for (Category category:categories) {
 
             CategoryDTO categoryDTO = CategoryDTO
                     .builder().categoryDescription(category.getCategoryDescription())
+                    .authority(category.getAuthority())
                     .categoryIndex(category.getCategoryIndex())
                     .categoryTitle(category.getCategoryTitle())
                     .bookmarkDTOList(new ArrayList<>())

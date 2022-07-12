@@ -50,6 +50,22 @@ public class UserController {
             return  ResponseEntity.badRequest().body(responseDTO);
         }
     }
+    @PostMapping("findUser")
+    public ResponseEntity<?> findByUserId(@RequestBody UserDTO userDTO){
+        try{
+            User user = userService.findbyEmail(userDTO.getEmail());
+            UserDTO responseUserDTO = UserDTO.builder()
+                    .userIndex(user.getUserIndex())
+                    .email(user.getEmail())
+                    .categoryList(user.categoryTitletoString())
+                    .friendsList(user.friendstoString())
+                    .build();
+            return ResponseEntity.ok(responseUserDTO);
+        }catch (Exception e){
+            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+            return  ResponseEntity.badRequest().body(responseDTO);
+        }
+    }
 
 
 }

@@ -6,6 +6,7 @@ import com.mylittlelib.app.model.Category;
 import com.mylittlelib.app.model.User;
 import com.mylittlelib.app.service.CategoryService;
 import com.mylittlelib.app.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +17,13 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("category")
 @CrossOrigin("*")
+@Slf4j
 public class CategoryController {
     @Autowired
     CategoryService categoryService;
     @Autowired
     UserService userService;
+
 
     @GetMapping
     public ResponseEntity<?> findall(){
@@ -31,23 +34,51 @@ public class CategoryController {
     }
     @PostMapping("totalinfo")
     public ResponseEntity<?> totalInfo(@RequestBody CategoryDTO categoryDTO){
-        User user = userService.findbyEmail(categoryDTO.getEmail());
-        List<CategoryDTO> categories = categoryService.totalInfo(user);
-        return ResponseEntity.ok(categories);
+        try {
+            User user = userService.findbyEmail(categoryDTO.getEmail());
+            List<CategoryDTO> categories = categoryService.totalInfo(user);
+            return ResponseEntity.ok(categories);
+        } catch (Exception e) {
+            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+            return  ResponseEntity.badRequest().body(responseDTO);
+        }
     }
-
+    // 공개인 카테고리만 띄우기
+    @GetMapping("totalinfo")
+    public ResponseEntity<?> openTotalInfo(){
+        try {
+            List<CategoryDTO> categories = categoryService.totalInfo();
+            return ResponseEntity.ok(categories);
+        } catch (Exception e) {
+            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+            return  ResponseEntity.badRequest().body(responseDTO);
+        }
+    }
+    @PostMapping("infobyuser")
+    public ResponseEntity<?> infobyuser(@RequestBody CategoryDTO categoryDTO){
+        try {
+            User user = userService.findbyEmail(categoryDTO.getEmail());
+            List<CategoryDTO> categories = categoryService.infobyuser(user);
+            return ResponseEntity.ok(categories);
+        } catch (Exception e) {
+            ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
+            return  ResponseEntity.badRequest().body(responseDTO);
+        }
+    }
     @PostMapping("save")
     public ResponseEntity<?> save(@RequestBody  CategoryDTO categoryDTO) {
         try {
 
             User getUser = userService.findbyEmail(categoryDTO.getEmail());
             Category category = Category.builder()
+                    .authority(categoryDTO.getAuthority())
                     .categoryTitle(categoryDTO.getCategoryTitle())
                     .categoryDescription(categoryDTO.getCategoryDescription())
                     .user(getUser)
                     .build();
-            Category registerCategory = categoryService.save(category);
+            Category registerCategory = categoryService.save(category, getUser);
             CategoryDTO responseCategoryDTO = CategoryDTO.builder()
+                    .authority(registerCategory.getAuthority())
                     .categoryIndex(registerCategory.getCategoryIndex())
                     .categoryDescription(registerCategory.getCategoryDescription())
                     .email(registerCategory.getUser().getEmail())
@@ -59,13 +90,14 @@ public class CategoryController {
             return  ResponseEntity.badRequest().body(responseDTO);
         }
     }
-    @GetMapping("/search")
+    @PostMapping ("/search")
     public ResponseEntity<?> findByTitle(@RequestBody CategoryDTO categoryDTO){
         try{
             Category category = categoryService.findByTitle(categoryDTO.getCategoryTitle());
+            log.info("찾아져라");
             CategoryDTO responseCategoryDTO = CategoryDTO.builder()
                     .categoryIndex(category.getCategoryIndex())
-                    .categoryDescription(categoryDTO.getCategoryDescription())
+                    .categoryDescription(category.getCategoryDescription())
                     .categoryTitle(category.getCategoryTitle())
                     .email(category.getUser().getEmail())
                     .build();
@@ -83,8 +115,9 @@ public class CategoryController {
             CategoryDTO responseCategoryDTO = CategoryDTO.builder()
                     .categoryIndex(category.getCategoryIndex())
                     .categoryTitle(category.getCategoryTitle())
-                    .categoryDescription(categoryDTO.getCategoryDescription())
+                    .categoryDescription(category.getCategoryDescription())
                     .email(category.getUser().getEmail())
+                    .authority(category.getAuthority())
                     .build();
             return ResponseEntity.ok(responseCategoryDTO);
         } catch (Exception e) {
