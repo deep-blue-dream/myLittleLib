@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <SessionProvider session={pageProps.session}>
       <Head>
-        <meta charset="UTF-8"/>
+        <meta charSet="UTF-8"/>
         <meta name="keyword" content="HTML, meta, tag, element, reference"/>
         <meta name="description" content="HTML meta tag page"/>
         <meta name="author" content="Team-MyLittleLab"/>

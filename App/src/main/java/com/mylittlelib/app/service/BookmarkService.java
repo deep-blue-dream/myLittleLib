@@ -19,6 +19,7 @@ public class BookmarkService {
         final String bookmarkTitle = bookmark.getBookmarkTitle();
         try{
             titleIsNull(bookmarkTitle);
+
         }catch (RuntimeException e){
             throw new RuntimeException(e.getMessage());
         }

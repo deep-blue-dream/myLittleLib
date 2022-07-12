@@ -3,8 +3,6 @@ import { useRouter } from 'next/router';
 import { postBookMarkAPI } from '../lib/api/bookmark';
 
 const AddBookMarkModal = (props) => {
-  // console.log(/);
-  // setBookModalOn
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [bookMarkURL, setBookMarkURL] = useState('');
@@ -30,7 +28,8 @@ const AddBookMarkModal = (props) => {
       description: description, //BE 요청 방식과 naming 동일하게 진행
       bookmarkUrl: bookMarkURL
     };
-    postBookMarkAPI(data);
+      postBookMarkAPI(data);
+
   };
 
   // 버튼 입력시 발생하는 이벤트 핸들러
@@ -65,7 +64,7 @@ const AddBookMarkModal = (props) => {
                   type="text"
                   name="title"
                   id="title"
-                  placeholder="고양이 팝송"
+                  placeholder="제목을 입력해주세요!"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   onChange={bookMarkTitleChangeHandler}
                   required=""
@@ -82,7 +81,7 @@ const AddBookMarkModal = (props) => {
                   type="text"
                   name="description"
                   id="description"
-                  placeholder="나 공부할 때 들을 팝송"
+                  placeholder="행복코딩을 위한 동영상 강의 모음"
                   className="box-border w-72 h-40 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                   onChange={bookMarkDesChangeHandler}
                   required=""
@@ -106,14 +105,6 @@ const AddBookMarkModal = (props) => {
                 />
               </div>
               <div className="flex justify-between">
-                {/* 공개여부 체크박스 설치예정 */}
-                {/* <div className="flex items-start">
-                                    <div className="flex items-center h-5"> */}
-                {/* <input id="remember" type="checkbox" value="" className="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-600 dark:border-gray-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800" required=""/>
-                                    </div>
-                                        <label for="remember" className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
-                                    </div>
-                                        <a href="#" className="text-sm text-blue-700 hover:underline dark:text-blue-500">Lost Password?</a> */}
                 <div className="flex">
                   <button
                     onClick={bookMarkCommitClickHandler}

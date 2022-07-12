@@ -9,5 +9,15 @@ export const postCategoryAPI = (data) => fetch(`${baseURL}/category/save`, {
     body: JSON.stringify(data)
 });
 
+export const findCategoryAPI = (data) => fetch(`${baseURL}/category/search`, {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+});
+
+
+
 
 
