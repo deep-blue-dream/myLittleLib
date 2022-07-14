@@ -26,7 +26,7 @@ const Content = (props) => {
   const clicked = () => {
     setModalOn(true);
   };
-  const BookClicked = () => {
+  const bookClicked = () => {
     setBookModalOn(true);
   };
 
@@ -108,7 +108,7 @@ const Content = (props) => {
               {/* {currCategory ? : } */}
               
               <div className="flex max-h-45">
-                <BookMarkButton BookClicked = {BookClicked}/>
+                <BookMarkButton BookClicked = {bookClicked}/>
                 
                 {/* modal 부분 작성중 */}
                 {bookModalOn && (
