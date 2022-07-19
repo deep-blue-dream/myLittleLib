@@ -14,32 +14,32 @@ const HomePage = () => {
     email : session?.user.email
   }
 
-  useEffect(async () => {
-    const res = await fetch('http://localhost:8080/category/totalinfo',{
-      method:'POST',
-      headers : {
-          'Content-Type':'application/json'
-      },
-      body: JSON.stringify(Email)
-    }); 
+  // useEffect(async () => {
+  //   const res = await fetch('http://localhost:8080/category/totalinfo',{
+  //     method:'POST',
+  //     headers : {
+  //         'Content-Type':'application/json'
+  //     },
+  //     body: JSON.stringify(Email)
+  //   }); 
 
-    const responsedData = await res.json();
+  //   const responsedData = await res.json();
     
-    setProperties(responsedData);
+  //   setProperties(responsedData);
   
-  }, []);
+  // }, []);
 
-  useEffect(async () => {
-      const res = await fetch('http://localhost:8080/user/signin', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(Email),
-      });
-      const userResponseData = await res.json();
-      setSignin(userResponseData);
-    }, []);
+  // useEffect(async () => {
+  //     const res = await fetch('http://localhost:8080/user/signin', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(Email),
+  //     });
+  //     const userResponseData = await res.json();
+  //     setSignin(userResponseData);
+  //   }, []);
 
 
   if (session === null) {

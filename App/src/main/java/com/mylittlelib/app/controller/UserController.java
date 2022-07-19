@@ -4,15 +4,20 @@ import com.mylittlelib.app.DTO.ResponseDTO;
 import com.mylittlelib.app.DTO.UserDTO;
 import com.mylittlelib.app.model.User;
 import com.mylittlelib.app.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("user")
 @CrossOrigin("*")
+@RequiredArgsConstructor
 public class UserController {
 
+
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private UserService userService;
 
@@ -33,6 +38,20 @@ public class UserController {
             return  ResponseEntity.badRequest().body(responseDTO);
         }
     }
+
+    @PostMapping("join")
+    public User join(@RequestBody UserDTO userDTO) {
+        userDTO.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword()));
+        User newUser = User.builder()
+                .username(userDTO.getUsername())
+                .roles("ROLE_USER")
+                .email(userDTO.getEmail())
+                .password(userDTO.getPassword())
+                .build();
+
+        return userService.save(newUser);
+    }
+
 
     @PostMapping("/signin")
     public ResponseEntity<?> signin(@RequestBody UserDTO userDTO) {
