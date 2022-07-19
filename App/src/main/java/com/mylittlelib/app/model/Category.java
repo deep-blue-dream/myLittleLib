@@ -39,6 +39,9 @@ public class Category {
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL)
     private AuthorityGroup authorityGroup;
 
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "category")
+//    private Set<Likes> likesList = new HashSet<>();
+
     @Override
     public String toString() {
         return "{ categoryTitle='" + categoryTitle + '\'' + '}';

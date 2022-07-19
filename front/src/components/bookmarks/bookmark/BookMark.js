@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import videoModal from '../../../modal/videoModal';
+import videoModal from '../../../modal/VideoModal';
 
 const BookMark = (props) => {
   const [isBookRendered, setIsBookRenderd] = useState(false);

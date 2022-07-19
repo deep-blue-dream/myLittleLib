@@ -5,13 +5,14 @@ import { findCategoryAPI } from '../../lib/api/category';
 import { Router, useRouter } from 'next/router';
 import { useSession } from "next-auth/react"
 import { signIn, signOut } from 'next-auth/react'
+import LoginModal from '../../modal/LoginModal';
 
 
 
 export default function TopNavigation() {
   const router = useRouter();
   const [loginModalOn, setLoginModalOn] = useState(false);
-  const [signUpModalOn, setSignUpModalOn] = useState(false);
+  // const [signUpModalOn, setSignUpModalOn] = useState(false);
   const [userInfo2, setUserInfo2] = useState({});
   const [search, setSearch] = useState("");
   const [getsearch, setgetSearch] = useState("");
@@ -21,9 +22,9 @@ export default function TopNavigation() {
     setLoginModalOn(true)
   }
 
-  const signUpClicked = () => {
-    setSignUpModalOn(true)
-  }
+  // const signUpClicked = () => {
+  //   setSignUpModalOn(true)
+  // }
   
 
   const searchHandler = (event) =>{
@@ -195,7 +196,7 @@ export default function TopNavigation() {
          
             {/* 회원가입 버튼 */}
               <svg 
-                onClick={signUpClicked}
+                onClick={loginClicked}
                 className="w-6 h-6" 
                 fill="none" 
                 stroke="currentColor" 
@@ -207,7 +208,8 @@ export default function TopNavigation() {
                   strokeWidth="2" 
                   d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
                 </svg>
-                {signUpModalOn && < SignUpModal setSignUpModalOn={setSignUpModalOn}/>}
+                {/* {signUpModalOn && < SignUpModal setSignUpModalOn={setSignUpModalOn}/>} */}
+                {loginModalOn && < LoginModal setLoginModalOn={setLoginModalOn}/>}
           </div>
         </div>
       </div>

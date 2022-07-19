@@ -26,7 +26,7 @@ public class CategoryController {
 
 
     @GetMapping
-    public ResponseEntity<?> findall(){
+    public ResponseEntity<?> findAll(){
         List<Category> categories = categoryService.findAll();
         List<CategoryDTO> dtos =categories.stream().map(CategoryDTO::new).collect(Collectors.toList());
         return ResponseEntity.ok(dtos);
@@ -87,7 +87,7 @@ public class CategoryController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<?> updateCatgory(@RequestBody CategoryDTO categoryDTO){
+    public ResponseEntity<?> updateCategory(@RequestBody CategoryDTO categoryDTO){
         try {
             User getUser = userService.findbyEmail(categoryDTO.getEmail());
             Category category = categoryService.updateCategory(categoryDTO, getUser);
@@ -116,4 +116,6 @@ public class CategoryController {
         }
 
     }
+
+
 }

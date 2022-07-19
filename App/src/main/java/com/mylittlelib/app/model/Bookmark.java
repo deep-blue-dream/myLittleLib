@@ -31,6 +31,4 @@ public class Bookmark {
     @JoinColumn(name = "category_index")
     private Category category;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "bookmark")
-    private Set<Likes> likesList = new HashSet<>();
 }

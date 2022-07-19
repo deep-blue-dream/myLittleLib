@@ -3,7 +3,7 @@ import ModalVideo from "react-modal-video";
 import "react-modal-video/css/modal-video.css";
 
 
-export class videoModal extends Component {
+export class VideoModal extends Component {
   
   constructor(video) {
     super();
@@ -35,4 +35,4 @@ export class videoModal extends Component {
   }
 }
 
-export default videoModal;
+export default VideoModal;

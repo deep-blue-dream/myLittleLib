@@ -33,8 +33,8 @@ public class User {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private Set<Category> categoryList = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
-    private Set<Likes> likesList = new HashSet<>();
+//    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
+//    private Set<Likes> likesList = new HashSet<>();
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private Set<Friend> friendList = new HashSet<>();

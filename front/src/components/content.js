@@ -5,7 +5,7 @@ import CategoryList from "./categories/CategoryList";
 import BookMarkList from "./bookmarks/BookMarkList";
 import AddBookMarkModal from "../modal/AddBookMarkModal";
 import { useSession } from "next-auth/react"
-import VideoModal from "../modal/videoModal";
+import VideoModal from "../modal/VideoModal";
 
 import { Router, useRouter } from "next/router";
 import Docs from './docs/index';
