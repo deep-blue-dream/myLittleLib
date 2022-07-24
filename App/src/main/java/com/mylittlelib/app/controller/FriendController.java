@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
-@RequestMapping("friend")
+@RequestMapping("api/friend")
 @CrossOrigin("*")
 public class FriendController {
 

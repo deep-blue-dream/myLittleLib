@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
-@RequestMapping("authority")
+@RequestMapping("api/authority")
 @CrossOrigin("*")
 public class AuthorityGroupController {
 

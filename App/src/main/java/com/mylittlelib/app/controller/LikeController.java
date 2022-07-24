@@ -12,7 +12,7 @@ import java.net.http.HttpRequest;
 public class LikeController {
 
 
-//    @PostMapping("/category/{categoryId}/likes")
+//    @PostMapping("/api/{categoryId}/likes")
 //    public void likes(@PathVariable long categoryId, HttpServletRequest req, HttpServletResponse res){
 //        String username = res.getHeader("username");
 //

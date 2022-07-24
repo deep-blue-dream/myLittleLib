@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 @Slf4j
 @RestController
-@RequestMapping("bookmark")
+@RequestMapping("api/bookmark")
 @CrossOrigin("*")
 public class BookmarkController {
     @Autowired

@@ -56,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(new JwtAuthenticationFilter(authenticationManager())) // JwtFilter를 직접 등록해줌.
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(), userRepository)) // JwtFilter를 직접 등록해줌.
                 .authorizeRequests()
-                .antMatchers("/test2/**")
+                .antMatchers("/api/**")
                 .access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
 
                 // 로그인을 따로 안하기 때문에 인증과정은 없지만, 해당 클라이언트가 위의 주소로 접속하면 인증이 안된경우 403 forbidden error 반환.
