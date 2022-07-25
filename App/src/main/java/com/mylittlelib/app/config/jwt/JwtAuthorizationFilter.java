@@ -46,7 +46,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
         String jwtToken = request.getHeader("Authorization").replace("Bearer ","");
 
         String username =
-                JWT.require(Algorithm.HMAC512("cos")).build().verify(jwtToken).getClaim("username").asString();
+                JWT.require(Algorithm.HMAC512("sdajkljwqekljszoidjawioejs")).build().verify(jwtToken).getClaim("username").asString();
 
         // 서명이 정상적으로 이루어짐.
         if(username != null) {
