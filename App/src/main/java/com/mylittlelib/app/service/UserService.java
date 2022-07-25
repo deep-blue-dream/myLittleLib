@@ -17,11 +17,17 @@ public class UserService {
 
     public User save(User user) {
         final String email = user.getEmail();
+        final String userName = user.getUsername();
         try{
             emailIsNull(email);
+            userNameisNull(userName);
+            if(userRepository.findByUsername(userName) != null){
+                log.error("userName already exist >> {}" ,userName);
+                throw new RuntimeException("UserName already exists");
+            }
             if(userRepository.existsUserByemail(email)){
-                log.warn("Email already exist >> {}", email);
-                throw new RuntimeException("Email or already exists");
+                log.error("Email already exist >> {}", email);
+                throw new RuntimeException("Email already exists");
             }
         }catch (RuntimeException e){
             throw new RuntimeException(e.getMessage());
@@ -51,6 +57,12 @@ public class UserService {
             throw  new RuntimeException("Invalid email");
         }
     }
+    private void userNameisNull(String userName){
+        if(userName == null || userName.equals("")){
+            log.error("username is null");
+            throw new RuntimeException("Invalid userName");
+        }
+    }
     public User findByUsername(String username) {
         if(userRepository.findByUsername(username) == null) {
             throw new RuntimeException("invalid username");
@@ -63,6 +75,7 @@ public class UserService {
         }
         return userRepository.findUserByEmail(email);
     }
+
     public Long findbyFriendEmail(String email){
         if(userRepository.findUserByEmail(email) == null){
             throw new RuntimeException("Invalid FriendEmail");

@@ -1,8 +1,6 @@
 package com.mylittlelib.app.model;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -10,6 +8,8 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor
 @Entity
+@Builder
+@AllArgsConstructor
 public class Likes {
             @Id
             @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,7 @@ public class Likes {
 //
             @ManyToOne(fetch = FetchType.LAZY) // student와 major의 관계는 다대일 (N:1)
             @JoinColumn(name = "category_index")
-    private Category category;
+            private Category category;
 }
 
 

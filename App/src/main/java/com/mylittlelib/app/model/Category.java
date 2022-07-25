@@ -25,7 +25,7 @@ public class Category {
     @Column(name = "category_description")
     private String categoryDescription;
 
-    @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class) // student와 major의 관계는 다대일 (N:1)
+    @ManyToOne(fetch = FetchType.LAZY, targetEntity = User.class)
     @JoinColumn(name = "user_index")
     private User user;
 
@@ -35,6 +35,8 @@ public class Category {
     //비공개가 디폴트
     @Column(name = "authority")
     private int authority = 0 ;
+    @Column(name = "likes_count")
+    private int likescount = 0;
 
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "category", cascade = CascadeType.ALL)
     private AuthorityGroup authorityGroup;
